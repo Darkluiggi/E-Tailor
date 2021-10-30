@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "c70Vgdiii0tZgsFVg0CkdGcAYq3o7W21oTqhIT5o4ulcO4ilDEZmWF9tptxc+ODrqerYZzvUcnsZ82E5X/OP0A==",
+  "dgSpecHash": "2a6IyRe3J/I+RmHOCxQkFImaYIgHcClEBb8nJWGuoaBgm+7L2vwaU3YMh9Fk9vCNjROAQDBriSEV5iEEQfsN4A==",
   "success": true,
   "projectFilePath": "C:\\Users\\darkl\\source\\repos\\E-Taylor\\Backend\\E-Tailor\\E-Tailor\\E-Tailor.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\darkl\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\darkl\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\darkl\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\darkl\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\darkl\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\darkl\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
   "logs": []
 }
