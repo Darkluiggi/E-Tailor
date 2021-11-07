@@ -31,7 +31,7 @@ namespace E_Tailor.Controller
         [HttpGet]
         public List<Rol> GetList()
         {
-            List <Rol> model = _context.Roles.ToList();
+            List <Rol> model = _context.Roles.Where(x => x.estado).ToList();
             return model;
         }
 
@@ -97,9 +97,5 @@ namespace E_Tailor.Controller
 
 
 
-        private bool RolExists(int id)
-        {
-            return _context.Roles.Any(e => e.id == id);
-        }
     }
 }
