@@ -14,6 +14,7 @@ namespace E_Tailor.Entity.Auth
         public int idRol { get; set; }
         public Rol rol { get; set; }
         public string email { get; set; }
+        public string  password { get; set; }
         public string phoneNumber { get; set; }
     }
 }

@@ -54,10 +54,11 @@ namespace E_Tailor.Controller
         /// </summary>
         /// <param name="user"></param>
         [HttpPost]
-        public void Create([FromBody] User user)
+        public User Create([FromBody] User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
+            return user;
         }
 
         /// <summary>

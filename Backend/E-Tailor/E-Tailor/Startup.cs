@@ -87,7 +87,7 @@ namespace E_Tailor
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Macrodatum - MacroIndustrial API v1.0.0-20201128");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ETailor - Etailor v1.0.0-20201128");
             });
         }
     }
