@@ -11,6 +11,7 @@ export default {
 
 <style>
 p {
+ text-decoration-style: solid;
  text-align:center
 }
 </style>

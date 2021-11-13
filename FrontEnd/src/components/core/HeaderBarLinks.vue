@@ -11,7 +11,15 @@
           >
             <span>Ingresar</span>
           </v-btn>
-
+          <v-btn
+            x-small   
+            target="_blank"
+            rel="noopener noreferrer"
+            text
+            @click="goToRegistration()"
+          >
+            <span>Registrarse</span>
+          </v-btn>
           
         </div>
       </v-container>
@@ -29,11 +37,15 @@ export default {
     name: "HeaderBarLinks",
     methods:{
         signIn(){},
+        goToRegistration(){
+        return this.$router.push("/Registration");
+    },
 
         signOut(){}
     },
   data: () => ({
     //
-  }),
+  }), 
+     
 };
 </script>
