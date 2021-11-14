@@ -31,6 +31,12 @@ export default new Router({
       alias: "/Registration",
       name: "Registration",
       component: () => import("./components/core/Registration")
-    },   
+    },  
+    {
+      path: "/Login",
+      alias: "/Login",
+      name: "Login",
+      component: () => import("./components/core/Login")
+    }, 
   ]
 });

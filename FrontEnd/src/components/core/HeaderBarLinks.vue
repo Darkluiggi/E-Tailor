@@ -8,6 +8,7 @@
             target="_blank"
             rel="noopener noreferrer"
             text
+            @click="goToLog()"
           >
             <span>Ingresar</span>
           </v-btn>
@@ -39,6 +40,9 @@ export default {
         signIn(){},
         goToRegistration(){
         return this.$router.push("/Registration");
+    },
+        goToLog(){
+        return this.$router.push("/Login");
     },
 
         signOut(){}
