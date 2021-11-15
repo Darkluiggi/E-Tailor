@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace E_Tailor.Controller
@@ -56,6 +60,7 @@ namespace E_Tailor.Controller
         [HttpPost]
         public User Create([FromBody] User user)
         {
+            user.password = Encriptar(user.password);
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;
@@ -100,7 +105,18 @@ namespace E_Tailor.Controller
             _context.SaveChanges();
         }
 
-
+        public static string Encriptar(string password)
+        {
+            var crypt = new System.Security.Cryptography.SHA256Managed();
+            var hash = new System.Text.StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(password));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+        
 
 
     }
