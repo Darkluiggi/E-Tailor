@@ -93,9 +93,7 @@ export default {
         phoneNumber: this.user.phoneNumber,
         idRol: this.user.idRol,
       };
-      // eslint-disable-next-line no-debugger
-      debugger
-      console.log(data)
+      
       UserDAS.create(data)
         .then((response) => {
           this.user.id = response.data.id;

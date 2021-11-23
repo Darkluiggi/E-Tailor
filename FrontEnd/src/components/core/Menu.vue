@@ -52,12 +52,14 @@
           active-class="deep-purple--text text--accent-4" 
         >
           <v-list-item v-for="item in items" :key="item.title" @click="item.action"  link>
-            <v-list-item-icon >
+            
+            <v-list-item-icon  v-if="CompareRol(item.rol)" >
               <v-icon style="color:#fff">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
-            <v-list-item-content>
+            <v-list-item-content  v-if="CompareRol(item.rol)">
               <v-list-item-title style="color:#fff">{{ item.title }}</v-list-item-title>
+              
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -88,31 +90,33 @@ export default {
   },
      data() {
     return {
+      user: JSON.parse(localStorage.getItem('user')),
       drawer: false,
       group: null,
       items: [
         {
           title: "Dashboard",
           icon: "mdi-home",
+          rol: ["Administrador", "Cliente", "Tailor"],
           action: this.goToDashboard,
         },
         {
           title: "Usuarios",
           icon: "mdi-office-building",
+          rol: ["Administrador" ],
           action: this.goToUser,
         },
-        // {
-        //   title: "Catalogo",
-        //   icon: "mdi-office-building",
-        //   action: this.goToCatalogo,
-        // },
-        // {
-        //   title: "Inventario",
-        //   icon: "mdi-office-building",
-        //   action: this.goToInventario,
-        // },
-        { title: "Photos", icon: "mdi-image", action: "adsasdasdb" },
-        { title: "About", icon: "mdi-help-box", action: "casdasdasdas" },
+    
+        { title: "Photos",
+         icon: "mdi-image",
+         rol: [ "Administrador","Cliente"],
+         action: "adsasdasdb" 
+         },
+        { title: "About",
+         icon: "mdi-help-box",
+          action: "casdasdasdas", 
+         rol: [ "Administrador","Cliente"],
+         },
       ],
       messages: 1,
     };
@@ -124,7 +128,41 @@ export default {
       goToUser(){
         return this.$router.push("/Users");
       },
+      CompareRol(data= Array){
+        var authorized=new Boolean();
+        if(this.user.user.rol == null){
+            authorized=false;
+        }else{
+          data.forEach(element => {
+            if(this.user.rol!==null){
+            if(element==this.user.user.rol.nombre){
+               authorized=true;
+            }
+            }
+          });
+        }
+        
+        
+   
+         
       
+       
+        // if(data.rol.includes()){
+        //   authorized=true;
+        // }
+        // else{
+        //   authorized=false;
+        // }
+        return authorized;
+
+      }
+      
+  },
+   mounted() {
+    this.user= JSON.parse(localStorage.getItem('user'));
+  },
+  created() {
+    this.user= JSON.parse(localStorage.getItem('user'));
   }
 
 

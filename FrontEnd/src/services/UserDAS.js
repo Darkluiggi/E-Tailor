@@ -14,11 +14,14 @@ class UserDAS {
   }
 
   update(id, data) {
-    return http.put(`/Edit/${id}`, data);
+    return http.put(`/User/Edit/${id}`, data);
   }
 
   delete(id) {
     return http.delete(`/User/Delete/${id}`);
+  }
+  findByName(data){
+    return http.get(`/User/FindByName/${data}`);
   }
 
   
