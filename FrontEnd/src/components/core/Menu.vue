@@ -51,9 +51,9 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4" 
         >
-          <v-list-item v-for="item in items" :key="item.title" @click="item.action"  link>
+          <v-list-item v-for="item in items" :key="item.title" @click="item.action"  link >
             
-            <v-list-item-icon  v-if="CompareRol(item.rol)" >
+            <v-list-item-icon   >
               <v-icon style="color:#fff">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
@@ -105,6 +105,12 @@ export default {
           icon: "mdi-office-building",
           rol: ["Administrador" ],
           action: this.goToUser,
+        },        
+        {
+          title: "Citas",
+          icon: "mdi-office-building",
+          rol: ["Administrador" , "Tailor"],
+          action: this.goToUser,
         },
     
         { title: "Photos",
@@ -122,6 +128,35 @@ export default {
     };
   },
   methods:{
+    
+      filterMenu(){
+        var items_ = Array();
+        
+        // eslint-disable-next-line no-debugger
+        debugger
+        
+        if(!this.user.authorized){
+          this.items=items_;
+        }else{
+          this.items.forEach(element => {
+          console.log(element);
+            element.rol.forEach(x=>{
+              if(x==this.user.user.rol.nombre){
+               items_.push(element);
+            }
+
+            })
+
+        })
+
+        }
+        
+        console.log(items_);
+        this.items=items_;
+       return items_;
+       
+      },
+      
       goToDashboard(){
         return this.$router.push("/");
       },
@@ -129,7 +164,8 @@ export default {
         return this.$router.push("/Users");
       },
       CompareRol(data= Array){
-        var authorized=new Boolean();
+        var authorized=new Boolean(false);
+         authorized=false;
         if(this.user.user.rol == null){
             authorized=false;
         }else{
@@ -143,23 +179,15 @@ export default {
         }
         
         
-   
-         
-      
-       
-        // if(data.rol.includes()){
-        //   authorized=true;
-        // }
-        // else{
-        //   authorized=false;
-        // }
+        
         return authorized;
 
-      }
-      
+      },
   },
    mounted() {
     this.user= JSON.parse(localStorage.getItem('user'));
+    console.log(this.user);
+    this.filterMenu();
   },
   created() {
     this.user= JSON.parse(localStorage.getItem('user'));

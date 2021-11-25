@@ -93,6 +93,8 @@ export default {
         var user = new User();
          localStorage.user=JSON.stringify(user);
          router.go();
+         router.push({ name: "Home2", params: { reload: true } });
+        
         }
     },
    mounted() {
