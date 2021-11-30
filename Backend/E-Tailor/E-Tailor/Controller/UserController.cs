@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace E_Tailor.Controller
@@ -26,12 +30,23 @@ namespace E_Tailor.Controller
         /// <summary>
         /// obtener lista de usuarios
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         public List<User> GetList()
         {
             List<User> model = _context.Users.Where(x=> x.estado).Include(x=> x.rol).ToList();
+            return model;
+        }
+
+        /// <summary>
+        /// obtener lista de usuarios
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet("{name}")]
+        public List<User> FindByName(string name)
+        {
+            List<User> model = _context.Users.Where(x => x.estado).Include(x => x.rol).Where(x=> x.name.ToUpper().Contains(name.ToUpper())).ToList();
             return model;
         }
 
@@ -49,6 +64,7 @@ namespace E_Tailor.Controller
             return user;
         }
 
+
         /// <summary>
         /// Crear nuevo user
         /// </summary>
@@ -56,6 +72,8 @@ namespace E_Tailor.Controller
         [HttpPost]
         public User Create([FromBody] User user)
         {
+            user.password = Encriptar(user.password);
+            user.rol = null;
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;
@@ -100,7 +118,18 @@ namespace E_Tailor.Controller
             _context.SaveChanges();
         }
 
-
+        public static string Encriptar(string password)
+        {
+            var crypt = new System.Security.Cryptography.SHA256Managed();
+            var hash = new System.Text.StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(password));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+        
 
 
     }
