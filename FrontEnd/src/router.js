@@ -15,6 +15,13 @@ export default new Router({
       component: Home
     },
     {
+      path: "/",
+      alias: "/home",
+      name: "Home2",
+      props: {reload: false},
+      component: Home
+    },
+    {
       path: "/Users",
       alias: "/users",
       name: "users",

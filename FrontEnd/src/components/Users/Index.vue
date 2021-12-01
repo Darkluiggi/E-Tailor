@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
     <v-col cols="12" md="8">
-      <v-text-field v-model="title" label="Search by Title"></v-text-field>
+      <v-text-field v-model="userName" label="Search by Title"></v-text-field>
     </v-col>
 
     <v-col cols="12" md="4">
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       users: [],
-      title: "",
+      userName: "",
       headers: [
         { text: "Nombre", align: "start", sortable: false, value: "nombre" },
         { text: "Email", value: "email", sortable: false },
@@ -74,7 +74,7 @@ export default {
 
     
     searchTitle() {
-      UserDAS.findByTitle(this.title)
+      UserDAS.findByName(this.userName)
         .then((response) => {
           this.users = response.data.map(this.getUser);
           console.log(response.data);

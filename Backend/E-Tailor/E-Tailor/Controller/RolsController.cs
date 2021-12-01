@@ -26,7 +26,6 @@ namespace E_Tailor.Controller
         /// <summary>
         /// obtener lista de roles
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         public List<Rol> GetList()
