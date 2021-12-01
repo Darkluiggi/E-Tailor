@@ -177,9 +177,6 @@ export default {
             }
           });
         }
-        
-        
-        
         return authorized;
 
       },
