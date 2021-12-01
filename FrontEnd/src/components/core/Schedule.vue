@@ -68,6 +68,7 @@
 <script>
     export default {
         data: () => ({
+            date:"",
         Tipos: ['Regular', 'Especial vestido de Novia'],
         Genero: ['Masculino', 'Femenino'],
         Taylor: ['Andres', 'Pedro', 'Camilo'],
