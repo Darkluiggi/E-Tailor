@@ -78,13 +78,27 @@ namespace E_Tailor.Controller
 
             user.rol = null;
             _context.Users.Add(user);
-            
+            _context.SaveChanges();
+
             switch (rol.nombre)
             {
                 case "Administrador":
                     Manager manager = new Manager();
                     manager.idUser = user.id;
-                    _context.Add(manager);
+                    manager.user = null;
+                    _context.Managers.Add(manager);
+                    break;
+                case "Cliente":
+                    Costumer costumer = new Costumer();
+                    costumer.idUser = user.id;
+                    costumer.user = null;
+                    _context.Costumers.Add(costumer);
+                    break;
+                case "Tailor":
+                    Tailor tailor = new Tailor();
+                    tailor.idUser = user.id;
+                    tailor.user = null;
+                    _context.Tailors.Add(tailor);
                     break;
                 default:
                     break;

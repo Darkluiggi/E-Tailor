@@ -1,5 +1,5 @@
-﻿using E_Tailor.Entity.Auth;
-using E_Tailor.Entity.Appointment;
+﻿using E_Tailor.Entity.Appointments;
+using E_Tailor.Entity.Auth;
 using E_Tailor.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System;
