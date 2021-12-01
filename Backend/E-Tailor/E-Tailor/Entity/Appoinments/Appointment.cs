@@ -8,5 +8,6 @@ namespace E_Tailor.Entity.Appointments
     public class Appointment
     {
         public int id { get; set; }
+
     }
 }

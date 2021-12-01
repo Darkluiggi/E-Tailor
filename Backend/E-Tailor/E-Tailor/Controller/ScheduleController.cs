@@ -2,6 +2,7 @@
 using E_Tailor.Entity.Auth;
 using E_Tailor.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,12 @@ namespace E_Tailor.Controller
         /// </summary>
         /// <param name="rol"></param>
         [HttpPost]
-        public List<Appointment> GetAppointmentsByClient(int id,[FromBody] Appointment appointment)
+        public List<Appointment> GetAppointmentsByCostumer(int id,[FromBody] Appointment appointment)
         {
             List<Appointment> result = new List<Appointment>();
-          
-            _context.SaveChanges();
+
+            var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.id == id);
+            result= costumer.appointments;
             return result;
         }
 

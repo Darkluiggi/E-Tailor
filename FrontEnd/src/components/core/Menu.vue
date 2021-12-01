@@ -109,8 +109,8 @@ export default {
         {
           title: "Citas",
           icon: "mdi-office-building",
-          rol: ["Administrador" , "Tailor"],
-          action: this.goToUser,
+          rol: ["Administrador" ,"Cliente", "Tailor"],
+          action: this.goToSchedule,
         },
     
         { title: "Photos",
@@ -131,9 +131,6 @@ export default {
     
       filterMenu(){
         var items_ = Array();
-        
-        // eslint-disable-next-line no-debugger
-        debugger
         
         if(!this.user.authorized){
           this.items=items_;
@@ -162,6 +159,9 @@ export default {
       },
       goToUser(){
         return this.$router.push("/Users");
+      },
+      goToSchedule(){
+        return this.$router.push("/Schedule");
       },
       CompareRol(data= Array){
         var authorized=new Boolean(false);

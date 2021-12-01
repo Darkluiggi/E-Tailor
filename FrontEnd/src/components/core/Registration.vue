@@ -13,21 +13,21 @@
 
         <v-text-field
           v-model="user.email"
-          :rules="[(v) => !!v || 'email is required']"
+          :rules="[(v) => v.length > 0 && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email must be valid']"
           label="Correo Electronico"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="user.password"
-          :rules="[(v) => !!v || 'email is required']"
+          :rules="[(v) => !!v || 'password is required']"
           label="Password"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="user.phoneNumber"
-          :rules="[(v) => !!v || 'email is required']"
+          :rules="[(v) => !!v || 'phone is required']"
           label="Telefono Celular"
           required
         ></v-text-field>
@@ -56,6 +56,7 @@
 
 <script>
 import UserDAS from "../../services/UserDAS";
+import RolDAS from "../../services/RolDAS";
 import user from "../../Entity/User.js"
 
 export default {
@@ -71,9 +72,16 @@ export default {
 
   methods: {
     saveUser() {
-      var data = {
+      var Rol = "Cliente";
+     
+        RolDAS.GetByName(Rol).then((response) => {
+        console.log(response);
+          var data = {
         name: this.user.name,
         email: this.user.email,
+        password: this.user.password,
+        phoneNumber: this.user.phoneNumber,
+        idRol: response.data.id ,
       };
       console.log(data)
       UserDAS.create(data)
@@ -85,9 +93,15 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      this.$router.push({ name: "Home2", params: { reload: true } });
     },
 
     newUser() {
+      
       this.submitted = false;
       this.user = {};
     },

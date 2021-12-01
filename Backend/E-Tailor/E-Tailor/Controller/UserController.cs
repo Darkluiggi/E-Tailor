@@ -45,7 +45,7 @@ namespace E_Tailor.Controller
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpGet("{name}")]
-        public List<User> FindByName(string name)
+        public List<User> FindByName([FromBody]string name)
         {
             List<User> model = _context.Users.Where(x => x.estado).Include(x => x.rol).Where(x=> x.name.ToUpper().Contains(name.ToUpper())).ToList();
             return model;

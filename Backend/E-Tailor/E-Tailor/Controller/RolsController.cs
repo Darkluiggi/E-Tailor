@@ -47,6 +47,19 @@ namespace E_Tailor.Controller
 
             return rol;
         }
+        /// <summary>
+        /// obtener rol por nombre
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public Rol GetByName([FromQuery]string name)
+        {
+
+            var rol = _context.Roles.First(x=> x.nombre.Equals(name));
+
+            return rol;
+        }
 
         /// <summary>
         /// Crear nuevo rol

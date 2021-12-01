@@ -20,6 +20,15 @@ class UserDAS {
   delete(id) {
     return http.delete(`/Rols/Delete/${id}`);
   }
+  GetByName(RolName) {
+    return http.get("/Rols/GetByName", { params: { name: RolName },
+  });
+}
+
+  findByName(data){
+    return http.post(`/Rols/GetByName/${data}`);
+  }
+
 
   
 }
