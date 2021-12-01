@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Tailor.Entity.Cita
+namespace E_Tailor.Entity.Appointment
 {
-    public class Appoinment
+    public class Appointment
     {
     }
 }

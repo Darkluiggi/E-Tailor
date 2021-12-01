@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using E_Tailor.Entity.Appointment;
 using E_Tailor.Entity.Auth;
+using E_Tailor.Entity.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Tailor.Persistence
@@ -25,5 +27,10 @@ namespace E_Tailor.Persistence
         //entities
         public DbSet<User> Users { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Costumer> Costumers { get; set; }
+        public DbSet<Tailor> Tailors { get; set; }
+        public DbSet<Appointment > Appointments { get; set; }
+        public DbSet<Cloth> Registry { get; set; }
     }
 }

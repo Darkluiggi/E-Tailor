@@ -1,4 +1,5 @@
 ﻿using E_Tailor.Entity.Auth;
+using E_Tailor.Entity.Users;
 using E_Tailor.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -73,8 +74,23 @@ namespace E_Tailor.Controller
         public User Create([FromBody] User user)
         {
             user.password = Encriptar(user.password);
+            var rol = _context.Roles.Find(user.idRol);
+
             user.rol = null;
             _context.Users.Add(user);
+            
+            switch (rol.nombre)
+            {
+                case "Administrador":
+                    Manager manager = new Manager();
+                    manager.idUser = user.id;
+                    _context.Add(manager);
+                    break;
+                default:
+                    break;
+            }
+                
+
             _context.SaveChanges();
             return user;
         }
