@@ -3,6 +3,14 @@
     <div class="row">
       <v-container>
         <div>
+           <v-btn
+            x-small              
+            v-if="!this.user.authorized"
+            text
+            @click="goToSchedule()"
+          >
+            <span>Citas</span>
+          </v-btn>
           <v-btn
             x-small
             v-if="!this.user.authorized"
@@ -87,7 +95,11 @@ export default {
     },
         goToLog(){
         return router.push("/Login");
-    },
+    }, 
+        goToSchedule(){
+        return this.$router.push("/Schedule");
+      },
+
 
         signOut(){
         var user = new User();
