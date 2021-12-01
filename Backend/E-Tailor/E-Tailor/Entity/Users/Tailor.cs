@@ -1,4 +1,4 @@
-﻿using E_Tailor.Entity.Appoinment;
+﻿using E_Tailor.Entity.Appointments;
 using E_Tailor.Entity.Auth;
 using System;
 using System.Collections.Generic;
