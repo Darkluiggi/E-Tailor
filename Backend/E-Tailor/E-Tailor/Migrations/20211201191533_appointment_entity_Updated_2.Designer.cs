@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    [Migration("20211201005251_EnitiesUpdated")]
-    partial class EnitiesUpdated
+    [Migration("20211201191533_appointment_entity_Updated_2")]
+    partial class appointment_entity_Updated_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,19 +21,44 @@ namespace E_Tailor.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("E_Tailor.Entity.Appointment.Appointment", b =>
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Appointment", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Costumerid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("hour")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("idTailor")
+                        .HasColumnType("int");
+
+                    b.Property<string>("serviceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("id");
+
+                    b.HasIndex("Costumerid");
+
+                    b.HasIndex("idTailor");
 
                     b.ToTable("Apointments");
                 });
 
-            modelBuilder.Entity("E_Tailor.Entity.Appointment.Cloth", b =>
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Cloth", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +75,7 @@ namespace E_Tailor.Migrations
                     b.ToTable("Clothes");
                 });
 
-            modelBuilder.Entity("E_Tailor.Entity.Appointment.Registry", b =>
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Registry", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -168,14 +193,27 @@ namespace E_Tailor.Migrations
                     b.ToTable("Tailors");
                 });
 
-            modelBuilder.Entity("E_Tailor.Entity.Appointment.Cloth", b =>
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Appointment", b =>
+                {
+                    b.HasOne("E_Tailor.Entity.Users.Costumer", null)
+                        .WithMany("appointments")
+                        .HasForeignKey("Costumerid");
+
+                    b.HasOne("E_Tailor.Entity.Users.Tailor", "tailor")
+                        .WithMany()
+                        .HasForeignKey("idTailor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Cloth", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Costumer", null)
                         .WithMany("clothes")
                         .HasForeignKey("Costumerid");
                 });
 
-            modelBuilder.Entity("E_Tailor.Entity.Appointment.Registry", b =>
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Registry", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Tailor", null)
                         .WithMany("registries")

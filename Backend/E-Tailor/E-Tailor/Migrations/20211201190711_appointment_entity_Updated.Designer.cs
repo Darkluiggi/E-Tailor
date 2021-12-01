@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    [Migration("20211201014808_EnitiesUpdated2")]
-    partial class EnitiesUpdated2
+    [Migration("20211201190711_appointment_entity_Updated")]
+    partial class appointment_entity_Updated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,9 +31,26 @@ namespace E_Tailor.Migrations
                     b.Property<int?>("Costumerid")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("hour")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("idTailor")
+                        .HasColumnType("int");
+
+                    b.Property<string>("serviceType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("id");
 
                     b.HasIndex("Costumerid");
+
+                    b.HasIndex("idTailor");
 
                     b.ToTable("Apointments");
                 });
@@ -178,6 +195,12 @@ namespace E_Tailor.Migrations
                     b.HasOne("E_Tailor.Entity.Users.Costumer", null)
                         .WithMany("appointments")
                         .HasForeignKey("Costumerid");
+
+                    b.HasOne("E_Tailor.Entity.Users.Tailor", "tailor")
+                        .WithMany()
+                        .HasForeignKey("idTailor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("E_Tailor.Entity.Appointments.Cloth", b =>
