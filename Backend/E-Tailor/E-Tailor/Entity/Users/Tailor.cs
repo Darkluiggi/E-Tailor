@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Users
 {
-    public class Tailor
+    public class Tailor :ModelBase
     {
         public int id { get; set; }
         [ForeignKey("user")]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Appointments
 {
-    public class Appointment
+    public class Appointment : ModelBase
     {
         public Appointment()
         {

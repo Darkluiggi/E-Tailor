@@ -54,11 +54,9 @@
           outlined
         ></v-select>
 
-        <v-select
-          :items="Taylor"
-          label="Taylor"
-          outlined
-        ></v-select>
+        
+        <v-select :items="Tailor" item-text="name" item-value="id" 
+        outlined auto v-model="tailorId" label="Seleccionar tailor"></v-select>
         <v-col align = "center">
         <v-btn color="primary" class="mt-3" align = "center">Agendar</v-btn>
         </v-col>
@@ -66,13 +64,21 @@
 </template>
 
 <script>
+
+import ScheduleDAS from "../../services/ScheduleDAS";
     export default {
         data: () => ({
             date:"",
-        Tipos: ['Regular', 'Especial vestido de Novia'],
-        Genero: ['Masculino', 'Femenino'],
-        Taylor: ['Andres', 'Pedro', 'Camilo'],
-        }),
+            tailorId:"",
+            Tipos: ['Regular', 'Especial vestido de Novia'],
+            Genero: ['Masculino', 'Femenino'],
+            Tailor: [
+                {
+                    name:"",
+                    id:0
+                }
+            ],
+             }),
 
         data_date: () => ({
             activePicker: null,
@@ -93,11 +99,25 @@
                 val && setTimeout(() => (this.activePicker = 'YEAR'))
             },
         },
-
+  mounted(){
+    this.getTailors();   
+  },
         methods: {
             save (date) {
                 this.$refs.menu.save(date)
             },
+            getTailors(){
+                ScheduleDAS.getAll()
+                     .then((response) => {
+                         console.log(response.data);
+                    this.Tailor = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+            }
+            
+            
         },
     }
 </script>

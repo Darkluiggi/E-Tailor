@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Users
 {
-    public class Costumer
+    public class Costumer : ModelBase
     {
         public Costumer()
         {

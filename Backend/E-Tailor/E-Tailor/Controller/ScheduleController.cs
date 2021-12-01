@@ -1,5 +1,6 @@
 ﻿using E_Tailor.Entity.Appointments;
 using E_Tailor.Entity.Auth;
+using E_Tailor.Entity.Users;
 using E_Tailor.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,33 @@ namespace E_Tailor.Controller
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// obtener lista de roles
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public List<TailorList> GetTailorList()
+        {
+
+            List<Tailor> model = _context.Tailors.Include(x=> x.user).Where(x => x.estado).ToList();
+            List<TailorList> result = new List<TailorList>();
+            model.ForEach (x =>
+             {
+                 TailorList data = new TailorList();
+                 data.id = x.id;
+                 data.name = x.user.name;
+                 result.Add(data);
+
+             });            
+
+            return result;
+        }
+        public class TailorList
+        {
+            public int id { get; set; }
+            public string name { get; set; }
         }
 
     }

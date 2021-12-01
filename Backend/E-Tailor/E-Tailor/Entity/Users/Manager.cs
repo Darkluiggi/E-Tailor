@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Users
 {
-    public class Manager
+    public class Manager : ModelBase
     {
         public int id { get; set; }
         [ForeignKey("user")]
