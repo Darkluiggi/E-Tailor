@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Users
 {
-    public class Costumer : ModelBase
+    public class Customer : ModelBase
     {
-        public Costumer()
+        public Customer()
         {
             clothes = new List<Cloth>();
             appointments = new List<Appointment>();

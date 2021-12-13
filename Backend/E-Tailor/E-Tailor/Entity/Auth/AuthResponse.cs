@@ -13,6 +13,7 @@ namespace E_Tailor.Entity.Auth
         }
         public User user { get; set; }
         public bool authorized { get; set; }
+        public string message { get; set; }
 
     }
 }

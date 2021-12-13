@@ -37,16 +37,25 @@ namespace E_Tailor.Controller
             try
             {
                 User result = _context.Users.Include(x=> x.rol).FirstOrDefault(x => x.email.Equals(data.email));
+                if (result == null)
+                {
+                    response.user = new User();
+                    response.authorized = false;
+                    response.message = "Usuario no encontrado";
+                    return response;
+                }
                 string str = Encriptar(data.password);
                 if (str == result.password)
                 {
                     response.user = result;
                     response.authorized = true;
+                    response.message = "success";
                 }
                 else
                 {
                     response.user = new User();
                     response.authorized = false;
+                    response.message = "Contraseña incorrecta";
 
                 }
             }

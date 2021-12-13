@@ -26,21 +26,23 @@ namespace E_Tailor.Persistence
 
             modelBuilder.Entity<Manager>().ToTable("Managers");
 
-            modelBuilder.Entity<Costumer>().ToTable("Costumers");
+            modelBuilder.Entity<Customer>().ToTable("Costumers");
             modelBuilder.Entity<Tailor>().ToTable("Tailors");
 
             modelBuilder.Entity<Appointment>().ToTable("Apointments");
             modelBuilder.Entity<Cloth>().ToTable("Clothes");
+            modelBuilder.Entity<Ticket>().ToTable("Tickets");
             modelBuilder.Entity<Registry>().ToTable("Registries");
         }
         //entities
         public DbSet<User> Users { get; set; }
         public DbSet<Rol> Roles { get; set; }
         public DbSet<Manager> Managers { get; set; }
-        public DbSet<Costumer> Costumers { get; set; }
+        public DbSet<Customer> Costumers { get; set; }
         public DbSet<Tailor> Tailors { get; set; }
         public DbSet<Appointment > Appointments { get; set; }
         public DbSet<Cloth> Clothes { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Registry> Registries { get; set; }
     }
 }

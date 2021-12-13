@@ -21,7 +21,7 @@ class UserDAS {
     return http.delete(`/User/Delete/${id}`);
   }
   findByName(data){
-    return http.get("/User/FindByName", data);
+    return http.get(`/User/FindByName/${data}`);
   }
 
   

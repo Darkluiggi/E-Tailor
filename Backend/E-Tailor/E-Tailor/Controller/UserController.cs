@@ -43,9 +43,9 @@ namespace E_Tailor.Controller
         /// obtener lista de usuarios
         /// </summary>
         /// <param name="name"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         [HttpGet("{name}")]
-        public List<User> FindByName([FromBody]string name)
+        public List<User> FindByName(string name)
         {
             List<User> model = _context.Users.Where(x => x.estado).Include(x => x.rol).Where(x=> x.name.ToUpper().Contains(name.ToUpper())).ToList();
             return model;
@@ -89,7 +89,7 @@ namespace E_Tailor.Controller
                     _context.Managers.Add(manager);
                     break;
                 case "Cliente":
-                    Costumer costumer = new Costumer();
+                    Customer costumer = new Customer();
                     costumer.idUser = user.id;
                     costumer.user = null;
                     _context.Costumers.Add(costumer);

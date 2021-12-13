@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
     <v-col cols="12" md="8">
-      <v-text-field v-model="userName" label="Search by Title"></v-text-field>
+      <v-text-field v-model="userName" label="Buscar por nombre"></v-text-field>
     </v-col>
 
     <v-col cols="12" md="4">
@@ -77,7 +77,6 @@ export default {
       UserDAS.findByName(this.userName)
         .then((response) => {
           this.users = response.data.map(this.getUser);
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);

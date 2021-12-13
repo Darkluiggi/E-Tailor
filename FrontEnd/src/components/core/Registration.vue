@@ -4,6 +4,13 @@
 
     <div v-if="!submitted">
       <v-form ref="form" >
+        <p v-if="errors.length">
+    <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
+    <ul>
+      <li v-for="error in errors" :key="error" style="color:red;text-decoration: underline">{{ error }}</li>
+    </ul>
+  </p>
+        
         <v-text-field
           v-model="user.name"
           :rules="[(v) => !!v || 'Nombre is required']"
@@ -13,7 +20,7 @@
 
         <v-text-field
           v-model="user.email"
-          :rules="[(v) => v.length > 0 && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email must be valid']"
+          :rules="[(v) =>  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email must be valid']"
           label="Correo Electronico"
           required
         ></v-text-field>
@@ -29,11 +36,11 @@
           v-model="user.phoneNumber"
           :rules="[(v) => !!v || 'phone is required']"
           label="Telefono Celular"
-          required
+         
         ></v-text-field>
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveUser">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="checkForm">Submit</v-btn>
     </div>
 
     <div v-else>
@@ -65,12 +72,32 @@ export default {
     return {
       user:{
         user
-      },      
+      },   
+      errors:[],   
       submitted: false,
     };
   },
 
   methods: {
+    checkForm() {
+      if (this.user.email && this.user.password && this.user.name ) {
+        this.saveUser();
+      }
+
+      this.errors = [];
+       if (!this.user.name) {
+        this.errors.push('El nombre es obligatorio.');
+      }
+
+      if (!this.user.email) {
+        this.errors.push('El correo es obligatorio.');
+      }
+      if (!this.user.password) {
+        this.errors.push('La contraseña es obligatoria.');
+      }
+
+      
+    },
     saveUser() {
       var Rol = "Cliente";
      

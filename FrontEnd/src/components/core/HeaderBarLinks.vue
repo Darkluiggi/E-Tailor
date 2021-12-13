@@ -1,16 +1,14 @@
 <template>
   <div class="container-fluid">
     <div class="row">
+    
+        
+      
       <v-container>
+        
         <div>
-           <v-btn
-            x-small              
-            v-if="!this.user.authorized"
-            text
-            @click="goToSchedule()"
-          >
-            <span>Citas</span>
-          </v-btn>
+           
+          <v-spacer></v-spacer>
           <v-btn
             x-small
             v-if="!this.user.authorized"
@@ -49,6 +47,16 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>{{ this.user.user.name }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <button @click="goToSchedule()">
+                      <v-icon> mdi-calendar </v-icon>
+                    </button>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <button @click="goToSchedule()">Citas</button>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>

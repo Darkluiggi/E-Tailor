@@ -30,12 +30,13 @@ namespace E_Tailor.Controller
         /// </summary>
         /// <param name="id"></param>
         /// <param name="appointment"></param>
-        [HttpPost]
+        [HttpPost("{id}")]
         public bool CreateAppointment(int id,[FromBody] Appointment appointment)
         {
             try
             {
-                var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.id == id);
+                var user= _context.Users.FirstOrDefault(x => x.id == id);
+                var costumer = _context.Costumers.FirstOrDefault(x => x.idUser == user.id);
                 costumer.appointments.Add(appointment);
                 _context.Costumers.Update(costumer);
                 _context.SaveChanges();
@@ -60,6 +61,31 @@ namespace E_Tailor.Controller
 
             var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.id == id);
             result= costumer.appointments;
+            return result;
+        }
+        /// <summary>
+        /// Crear nuevo rol
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpPost]
+        public List<Appointment> GetAppointmentsByTailor(int id)
+        {
+            List<Appointment> result = new List<Appointment>();
+            var appointments = _context.Appointments.Where(x => x.idTailor == id && x.estado).ToList();
+            result = appointments;
+            return result;
+        }
+
+        /// <summary>
+        /// Crear nuevo rol
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpPost]
+        public Appointment GetAppointmentById(int id)
+        {
+            Appointment result = new Appointment();
+            var appointment = _context.Appointments.FirstOrDefault(x => x.idTailor == id && x.estado);
+            result = appointment;
             return result;
         }
 
