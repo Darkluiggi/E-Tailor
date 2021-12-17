@@ -9,21 +9,21 @@
         Search
       </v-btn>
     </v-col>
-    <v-btn text style="cursor: pointer" @click="AddRol()">
+    <v-btn text style="cursor: pointer" @click="AddTask()">
                 <v-icon>mdi-plus</v-icon>
-                <span>Agregar Rol</span>
+                <span>Agregar tarea</span>
     </v-btn>
         
             
         
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
-        <v-card-title>Roles</v-card-title>
+        <v-card-title>Tareas</v-card-title>
         <v-spacer></v-spacer>
         
         <v-data-table
           :headers="headers"
-          :items="roles"
+          :items="tasks"
           disable-pagination
           :hide-default-footer="true"
         >
@@ -40,15 +40,16 @@
 </template>
 
 <script>
-import RolDAS from "../../services/RolDAS";
+import TaskDAS from "../../services/TaskDAS";
 export default {
-  name: "UserIndex",
+  name: "TaskIndex",
   data() {
     return {
-      roles: [],
+      tasks: [],
       title: "",
       headers: [
         { text: "Nombre", align: "start", sortable: false, value: "nombre" },
+        { text: "Precio", value: "price", sortable: false },
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -56,10 +57,10 @@ export default {
   },
   methods: {
     retrieveList() {
-      RolDAS.getAll()
+      TaskDAS.getAll()
         .then((response) => {
           console.log(response.data);
-          this.roles = response.data.map(this.getRoles);
+          this.tasks = response.data.map(this.getTasks);
           console.log(response.data);
         })
         .catch((e) => {
@@ -73,7 +74,7 @@ export default {
 
     
     searchTitle() {
-      RolDAS.findByTitle(this.title)
+      TaskDAS.findByTitle(this.title)
         .then((response) => {
           this.tutorials = response.data.map(this.getRoles);
           console.log(response.data);
@@ -83,12 +84,12 @@ export default {
         });
     },
 
-    editRol(id) {
+    editTask(id) {
       this.$router.push({ name: "userDetails", params: { id: id } });
     },
 
     deleteRol(id) {
-      RolDAS.delete(id)
+      TaskDAS.delete(id)
         .then(() => {
           this.refreshList();
         })
@@ -96,15 +97,16 @@ export default {
           console.log(e);
         });
     },
-    AddRol(){
-      return this.$router.push("/AddRol");
+    AddTask(){
+      return this.$router.push("/AddTask");
     },
 
-    getRoles(rol) {
+    getTasks(task) {
       return {
-        id: rol.id,
-        nombre: rol.nombre, 
-        status: rol.estado ? "Activo" : "Inactivo", 
+        id: task.id,
+        nombre: task.name, 
+        price:task.price,
+        status: task.estado ? "Activo" : "Inactivo", 
       };
     },
   },

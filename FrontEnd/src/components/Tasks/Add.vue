@@ -1,20 +1,25 @@
 <template>
   <div class="submit-form mt-3 mx-auto">
-    <p class="headline">Nuevo rol</p>
+    <p class="headline">Nueva tarea</p>
 
     <div v-if="!submitted">
       <v-form ref="form" >
         <v-text-field
-          v-model="rol.nombre"
+          v-model="task.nombre"
           :rules="[(v) => !!v || 'Nombre is required']"
           label="Title"
           required
         ></v-text-field>
-
+        <v-text-field
+          v-model="task.precio"
+          :rules="[(v) => !!v || 'Nombre is required']"
+          label="Title"
+          required
+        ></v-text-field>
        
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveRol">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="saveTask">Submit</v-btn>
     </div>
 
     <div v-else>
@@ -36,26 +41,27 @@
 </template>
 
 <script>
-import UserDAS from "../../services/UserDAS";
+import TaskDAS from "../../services/TaskDAS";
 
 export default {
-  name: "add-user",
+  name: "add-task",
   data() {
     return {
-      rol:{
-        nomre:'',
+      task:{
+        nombre:'',
+        precio:'',
       },      
       submitted: false,
     };
   },
 
   methods: {
-    saveRol() {
+    saveTask() {
       var data = {
         nombre: this.rol.nombre,
       };
       console.log(data)
-      UserDAS.create(data)
+      TaskDAS.create(data)
         .then((response) => {
           this.user.id = response.data.id;
           console.log(response.data);
@@ -66,10 +72,7 @@ export default {
         });
     },
 
-    newUser() {
-      this.submitted = false;
-      this.user = {};
-    },
+  
   },
 };
 </script>

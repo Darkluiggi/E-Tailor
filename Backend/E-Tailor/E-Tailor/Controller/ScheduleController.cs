@@ -51,15 +51,15 @@ namespace E_Tailor.Controller
 
 
         /// <summary>
-        /// Crear nuevo rol
+        /// Obtener citas por cliente
         /// </summary>
         /// <param name="id"></param>
-        [HttpPost]
-        public List<Appointment> GetAppointmentsByCostumer(int id)
+        [HttpGet("{id}")]
+        public List<Appointment> GetAppointmentsByCustomer(int id)
         {
             List<Appointment> result = new List<Appointment>();
 
-            var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.id == id);
+            var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.idUser == id);
             result= costumer.appointments;
             return result;
         }
@@ -67,7 +67,7 @@ namespace E_Tailor.Controller
         /// Crear nuevo rol
         /// </summary>
         /// <param name="id"></param>
-        [HttpPost]
+        [HttpGet("{id}")]
         public List<Appointment> GetAppointmentsByTailor(int id)
         {
             List<Appointment> result = new List<Appointment>();

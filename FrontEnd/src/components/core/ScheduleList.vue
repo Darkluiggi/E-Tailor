@@ -1,20 +1,30 @@
 <template> 
-    <div> 
-    <p class="headline">Mis Citas</p>
-    <table>
-      
-      </table>
-   <tbody>
-     <tr v-for="todo in todos" :key="todo.id">
-     <td>{{todo.date}}</td>
-     <td>{{todo.tailorId}}</td>
-     <td>{{todo.Tipos}}</td>
-     <td>{{todo.Genero}}</td>
-     </tr>
-   </tbody>
+    <v-row align="center" class="list px-3 mx-auto">
 
+       <v-btn text style="cursor: pointer" @click="AddAppointment()">
+                <v-icon>mdi-plus</v-icon>
+                <span>Agregar cita</span>
+    </v-btn>
+        
+      <v-col cols="12" sm="12">
+      <v-card class="mx-auto" tile>
+        <v-card-title>Mis Citas</v-card-title>
+        
+    <v-data-table
+          :headers="headers"
+          :items="todos"
+          disable-pagination
+          :hide-default-footer="true"
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="editUser(item.id)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteUser(item.id)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </v-card>
+      </v-col>
 
-    </div>
+    </v-row>
     
  
 </template>
@@ -27,7 +37,14 @@ export default {
      
    return {
    user: JSON.parse(localStorage.getItem('user')),
-   todos:null,
+   todos:[],
+    headers: [
+        { text: "Fecha", align: "start", sortable: false, value: "date" },
+        { text: "Hora", value: "hour", sortable: false },
+        { text: "Tipo", value: "Tipos", sortable: false },
+        { text: "Genero", value: "Genero", sortable: false },
+        { text: "Actions", value: "actions", sortable: false },
+      ],
      }
    },
    mounted(){
@@ -42,7 +59,7 @@ export default {
       ScheduleDAS.getAppointmentsByCustomer(id)
         .then((response) => {
           console.log(response.data)
-          this.todos = response.data
+          this.todos =  response.data.map(this.getAppointment);
           this.submitted = true
             })
        .catch((e) => {
@@ -50,6 +67,20 @@ export default {
         });
        return this.todos
      },
+      getAppointment(appointment) {
+      return {
+        id: appointment.id,
+        date:  appointment.date.split('T')[0],        
+        hour: appointment.hour.split('T')[1],
+        tailorId: appointment.tailorId,
+        Tipos: appointment.serviceType,
+        Genero: appointment.gender,
+
+      };
+    },
+    AddAppointment(){
+       return this.$router.push("/AddSchedule");
+    }
 
    }
 

@@ -105,7 +105,7 @@ export default {
         return router.push("/Login");
     }, 
         goToSchedule(){
-        return this.$router.push("/Schedule");
+        return this.$router.push("/ScheduleList");
       },
 
 

@@ -105,6 +105,24 @@ export default {
           icon: "mdi-office-building",
           rol: ["Administrador" ],
           action: this.goToUser,
+        },  
+        {
+          title: "Roles",
+          icon: "mdi-office-building",
+          rol: ["Administrador" ],
+          action: this.goToRoles,
+        },  
+        {
+          title: "Prendas",
+          icon: "mdi-office-building",
+          rol: ["Administrador" ],
+          action: this.goToClothes,
+        },  
+        {
+          title: "Tareas",
+          icon: "mdi-office-building",
+          rol: ["Administrador" ],
+          action: this.goToTasks,
         },        
         {
           title: "Citas",
@@ -157,11 +175,17 @@ export default {
       goToDashboard(){
         return this.$router.push("/");
       },
-      goToUser(){
-        return this.$router.push("/Users");
+      goToRoles(){
+        return this.$router.push("/Roles");
+      },
+      goToClothes(){
+        return this.$router.push("/Clothes");
+      },
+      goToTasks(){
+        return this.$router.push("/Tasks");
       },
       goToSchedule(){
-        return this.$router.push("/Schedule");
+        return this.$router.push("/ScheduleList");
       },
       CompareRol(data= Array){
         var authorized=new Boolean(false);

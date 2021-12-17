@@ -34,6 +34,34 @@ export default new Router({
       component: () => import("./components/Users/Add")
     }, 
     {
+      path: "/Roles",
+      name: "roles",
+      component: () => import("./components/Rols/Index")
+    },
+    {
+      path: "/AddRol",
+      name: "addRol",
+      component: () => import("./components/Rols/Add")
+    },
+    
+    {
+      path: "/Clothes",
+      name: "clothes",
+      component: () => import("./components/Clothes/Index")
+    },
+    
+    {
+      path: "/Tasks",
+      name: "tasks",
+      component: () => import("./components/Tasks/Index")
+    },
+    {
+      path: "/AddTask",
+      name: "addTask",
+      component: () => import("./components/Tasks/Add")
+    },
+    
+    {
       path: "/Registration",
       alias: "/Registration",
       name: "Registration",
@@ -53,8 +81,7 @@ export default new Router({
       component: () => import("./components/core/Login")
     }, 
     {
-      path: "/Schedule",
-      alias: "/Schedule",
+      path: "/AddSchedule",
       name: "Schedule",
       component: () => import("./components/core/Schedule")
     },
