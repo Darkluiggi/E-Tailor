@@ -95,5 +95,11 @@ export default new Router({
       name: "Schedule",
       component: () => import("./components/core/Schedule")
     },
+    {
+      path: "/Clothes",
+      alias: "/Clothes",
+      name: "Clothes",
+      component: () => import("./components/core/Clothes")
+    },
   ]
 });
