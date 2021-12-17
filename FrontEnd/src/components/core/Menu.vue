@@ -127,8 +127,14 @@ export default {
         {
           title: "Citas",
           icon: "mdi-office-building",
-          rol: ["Cliente", "Tailor"],
+          rol: ["Cliente"],
           action: this.goToSchedule,
+        },
+        {
+          title: "Horario de trabajo",
+          icon: "mdi-office-building",
+          rol: [ "Tailor"],
+          action: this.goToWorkerSchedule,
         },
     
         { title: "Photos",
@@ -189,6 +195,9 @@ export default {
       },
       goToSchedule(){
         return this.$router.push("/ScheduleList");
+      },      
+      goToWorkerSchedule(){
+        return this.$router.push("/WorkSchedule");
       },
       CompareRol(data= Array){
         var authorized=new Boolean(false);

@@ -71,7 +71,8 @@ namespace E_Tailor.Controller
         public List<Appointment> GetAppointmentsByTailor(int id)
         {
             List<Appointment> result = new List<Appointment>();
-            var appointments = _context.Appointments.Where(x => x.idTailor == id && x.estado).ToList();
+            var tailor = _context.Tailors.FirstOrDefault(x => x.estado && x.idUser == id);
+            var appointments = _context.Appointments.Where(x => x.idTailor == tailor.id && x.estado).ToList();
             result = appointments;
             return result;
         }
