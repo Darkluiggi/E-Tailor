@@ -31,24 +31,24 @@ export default {
      }
    },
    mounted(){
-     this.user= JSON.parse(localStorage.getItem('user'));
-     this.getList(this.user.user.id);
+     console.log(this.user.id)
+     console.log(this.user.name)
+     this.user= JSON.parse(localStorage.getItem('user'))
+     this.getList(this.user.user.id)
    },
 
    methods: {
-     getList(id){
-     
-      console.log(this.user.id);
-      console.log(this.user.name);
-      ScheduleDAS.GetAppointmentByCustomer(id)
+     getList(id){    
+      ScheduleDAS.getAppointmentsByCustomer(id)
         .then((response) => {
-                         console.log(response.data);
-                         this.todos = response.data;
+          console.log(response.data)
+          this.todos = response.data
+          this.submitted = true
             })
        .catch((e) => {
-          console.log(e);
+          console.log(e)
         });
-       return this.todos;
+       return this.todos
      },
 
    }
