@@ -9,27 +9,27 @@
         Search
       </v-btn>
     </v-col>
-    <v-btn text style="cursor: pointer" @click="AddRol()">
+    <v-btn text style="cursor: pointer" @click="AddCloth()">
                 <v-icon>mdi-plus</v-icon>
-                <span>Agregar Rol</span>
+                <span>Agregar prenda</span>
     </v-btn>
         
             
         
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
-        <v-card-title>Roles</v-card-title>
+        <v-card-title>Prendas</v-card-title>
         <v-spacer></v-spacer>
         
         <v-data-table
           :headers="headers"
-          :items="roles"
+          :items="clothes"
           disable-pagination
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editRol(item.id)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteRol(item.id)">mdi-delete</v-icon>
+            <v-icon small class="mr-2" @click="editCloth(item.id)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteCloth(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
 
@@ -40,15 +40,16 @@
 </template>
 
 <script>
-import RolDAS from "../../services/RolDAS";
+import ClothDAS from "../../services/ClothDAS";
 export default {
-  name: "UserIndex",
+  name: "ClothesIndex",
   data() {
     return {
-      roles: [],
+      clothes: [],
       title: "",
       headers: [
         { text: "Nombre", align: "start", sortable: false, value: "nombre" },
+        { text: "Género", value: "genero", sortable: false },
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -56,10 +57,10 @@ export default {
   },
   methods: {
     retrieveList() {
-      RolDAS.getAll()
+      ClothDAS.getAll()
         .then((response) => {
           console.log(response.data);
-          this.roles = response.data.map(this.getRoles);
+          this.clothes = response.data.map(this.getClothes);
           console.log(response.data);
         })
         .catch((e) => {
@@ -73,9 +74,9 @@ export default {
 
     
     searchTitle() {
-      RolDAS.findByTitle(this.title)
+      ClothDAS.findByName(this.title)
         .then((response) => {
-          this.tutorials = response.data.map(this.getRoles);
+          this.clothes = response.data.map(this.getClothes);
           console.log(response.data);
         })
         .catch((e) => {
@@ -83,12 +84,12 @@ export default {
         });
     },
 
-    editRol(id) {
+    editCloth(id) {
       this.$router.push({ name: "userDetails", params: { id: id } });
     },
 
-    deleteRol(id) {
-      RolDAS.delete(id)
+    deleteCloth(id) {
+      ClothDAS.delete(id)
         .then(() => {
           this.refreshList();
         })
@@ -96,15 +97,16 @@ export default {
           console.log(e);
         });
     },
-    AddRol(){
-      return this.$router.push("/AddRol");
+    AddCloth(){
+      return this.$router.push("/AddCloth");
     },
 
-    getRoles(rol) {
+    getClothes(cloth) {
       return {
-        id: rol.id,
-        nombre: rol.nombre, 
-        status: rol.estado ? "Activo" : "Inactivo", 
+        id: cloth.id,
+        nombre: cloth.name, 
+        genero: cloth.gender,
+        status: cloth.estado ? "Activo" : "Inactivo", 
       };
     },
   },

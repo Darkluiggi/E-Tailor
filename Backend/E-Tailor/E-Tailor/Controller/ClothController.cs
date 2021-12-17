@@ -51,6 +51,16 @@ namespace E_Tailor.Controller
             List<Cloth> model = _context.Clothes.Where(x => x.estado).Where(x=> x.name.ToUpper().Contains(name.ToUpper())).ToList();
             return model;
         }
+        /// <summary>
+        /// obtener lista de prendas
+        /// </summary>
+        /// <returns></returns> 
+        [HttpGet]
+        public List<Cloth> FindByName()
+        {
+            List<Cloth> model = _context.Clothes.Where(x => x.estado).ToList();
+            return model;
+        }
 
         /// <summary>
         /// obtener user por id
@@ -70,7 +80,7 @@ namespace E_Tailor.Controller
         /// <summary>
         /// Crear nuevo user
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="cloth"></param>
         [HttpPost]
         public Cloth Create([FromBody] Cloth cloth)
         {

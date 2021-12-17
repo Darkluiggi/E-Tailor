@@ -7,13 +7,13 @@
         <v-text-field
           v-model="task.nombre"
           :rules="[(v) => !!v || 'Nombre is required']"
-          label="Title"
+          label="Nombre"
           required
         ></v-text-field>
         <v-text-field
           v-model="task.precio"
-          :rules="[(v) => !!v || 'Nombre is required']"
-          label="Title"
+          :rules="[(v) => !!v || 'precio is required']"
+          label="Precio"
           required
         ></v-text-field>
        
@@ -58,9 +58,12 @@ export default {
   methods: {
     saveTask() {
       var data = {
-        nombre: this.rol.nombre,
+        name: this.task.nombre,
+        price:  parseInt(this.task.precio, 10)
+        
+       
       };
-      console.log(data)
+      console.log(typeof data.price)
       TaskDAS.create(data)
         .then((response) => {
           this.user.id = response.data.id;
@@ -70,6 +73,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+        this.$router.push("/Tasks");
     },
 
   

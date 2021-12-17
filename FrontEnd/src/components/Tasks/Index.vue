@@ -28,8 +28,8 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editRol(item.id)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteRol(item.id)">mdi-delete</v-icon>
+            <v-icon small class="mr-2" @click="editTask(item.id)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteTask(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
 
@@ -74,9 +74,12 @@ export default {
 
     
     searchTitle() {
-      TaskDAS.findByTitle(this.title)
+      if(this.title==null){
+        this.title=" ";
+      }
+      TaskDAS.findByName(this.title)
         .then((response) => {
-          this.tutorials = response.data.map(this.getRoles);
+         this.tasks = response.data.map(this.getTasks);
           console.log(response.data);
         })
         .catch((e) => {
@@ -88,7 +91,7 @@ export default {
       this.$router.push({ name: "userDetails", params: { id: id } });
     },
 
-    deleteRol(id) {
+    deleteTask(id) {
       TaskDAS.delete(id)
         .then(() => {
           this.refreshList();

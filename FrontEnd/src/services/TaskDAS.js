@@ -24,6 +24,9 @@ class TaskDAS {
     return http.get("/Task/GetByName", { params: { name: RolName },
   });
 }
+findByName(data){
+  return http.get(`/Task/FindByName/${data}`);
+}
 
 
   

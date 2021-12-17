@@ -1,20 +1,26 @@
 <template>
   <div class="submit-form mt-3 mx-auto">
-    <p class="headline">Nuevo rol</p>
+    <p class="headline">Nueva prenda</p>
 
     <div v-if="!submitted">
       <v-form ref="form" >
         <v-text-field
-          v-model="rol.nombre"
+          v-model="cloth.name"
           :rules="[(v) => !!v || 'Nombre is required']"
-          label="Title"
+          label="Nombre"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="cloth.gender"
+          :rules="[(v) => !!v || 'Género is required']"
+          label="Género"
           required
         ></v-text-field>
 
        
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveRol">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="saveCloth">Submit</v-btn>
     </div>
 
     <div v-else>
@@ -28,7 +34,7 @@
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="success" @click="newUser">Add</v-btn>
+          <v-btn color="success" @click="newCloth">Add</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -36,26 +42,28 @@
 </template>
 
 <script>
-import UserDAS from "../../services/UserDAS";
+import ClothDAS from "../../services/ClothDAS";
 
 export default {
   name: "add-user",
   data() {
     return {
-      rol:{
-        nomre:'',
+      cloth:{
+        name:'',
+        gender:''
       },      
       submitted: false,
     };
   },
 
   methods: {
-    saveRol() {
+    saveCloth() {
       var data = {
-        nombre: this.rol.nombre,
+        name: this.cloth.name,
+        gender: this.cloth.gender,
       };
       console.log(data)
-      UserDAS.create(data)
+      ClothDAS.create(data)
         .then((response) => {
           this.user.id = response.data.id;
           console.log(response.data);
@@ -64,9 +72,10 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+        this.$router.push("/Clothes");
     },
 
-    newUser() {
+    newCloth() {
       this.submitted = false;
       this.user = {};
     },

@@ -48,6 +48,10 @@ export default new Router({
       path: "/Clothes",
       name: "clothes",
       component: () => import("./components/Clothes/Index")
+    },{
+      path: "/AddCloth",
+      name: "addCloth",
+      component: () => import("./components/Clothes/Add")
     },
     
     {

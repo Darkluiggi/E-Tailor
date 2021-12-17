@@ -24,6 +24,9 @@ class ClothDAS {
     return http.get("/Cloth/GetByName", { params: { name: RolName },
   });
 }
+findByName(data){
+  return http.get(`/Cloth/FindByName/${data}`);
+}
 
 
 

@@ -104,7 +104,7 @@ export default {
           title: "Usuarios",
           icon: "mdi-office-building",
           rol: ["Administrador" ],
-          action: this.goToUser,
+          action: this.goToUsers,
         },  
         {
           title: "Roles",
@@ -127,7 +127,7 @@ export default {
         {
           title: "Citas",
           icon: "mdi-office-building",
-          rol: ["Administrador" ,"Cliente", "Tailor"],
+          rol: ["Cliente", "Tailor"],
           action: this.goToSchedule,
         },
     
@@ -177,6 +177,9 @@ export default {
       },
       goToRoles(){
         return this.$router.push("/Roles");
+      },
+      goToUsers(){
+        return this.$router.push("/Users");
       },
       goToClothes(){
         return this.$router.push("/Clothes");

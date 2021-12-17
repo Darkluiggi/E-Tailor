@@ -47,7 +47,21 @@ namespace E_Tailor.Controller
         [HttpGet("{name}")]
         public List<Task> FindByName(string name)
         {
+          
             List<Task> model = _context.Tasks.Where(x => x.estado).Where(x => x.name.ToUpper().Contains(name.ToUpper())).ToList();
+            return model;
+        }
+        /// <summary>
+        /// obtener lista de usuarios
+        /// </summary>
+        /// <returns></returns> 
+        [HttpGet]
+        public List<Task> FindByName()
+        {
+            
+              
+            
+            List<Task> model = _context.Tasks.Where(x => x.estado).ToList();
             return model;
         }
 
@@ -69,25 +83,22 @@ namespace E_Tailor.Controller
         /// <summary>
         /// Crear nuevo user
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="task"></param>
         [HttpPost]
-        public Task Create([FromBody] Task cloth)
+        public Task Create([FromBody] Task task)
         {
 
-            _context.Tasks.Add(cloth);
+            _context.Tasks.Add(task);
             _context.SaveChanges();
 
-
-
-
-            return cloth;
+            return task;
         }
 
         /// <summary>
         /// Actualizar un user
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="user"></param>
+        /// <param name="task"></param>
         [HttpPut("{id}")]
         public void Edit(int id, [FromBody] Task task)
         {
