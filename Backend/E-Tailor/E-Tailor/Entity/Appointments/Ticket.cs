@@ -10,6 +10,10 @@ namespace E_Tailor.Entity.Appointments
 {
     public class Ticket: ModelBase
     {
+        public Ticket()
+        {
+            tasks = new List<Task>();
+        }
         public int id { get; set; }
         [ForeignKey("tailor")]
         public int idTailor { get; set; }
@@ -18,6 +22,7 @@ namespace E_Tailor.Entity.Appointments
         public int idCustomer { get; set; }
         public Customer customer { get; set; }
         public DateTime deliveryDate { get; set; }
+        public List<Task> tasks { get; set; }
         public int servicePrice { get; set; }
 
     }

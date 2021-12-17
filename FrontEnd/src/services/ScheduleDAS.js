@@ -10,6 +10,9 @@ class ScheduleDAS {
   saveAppointment(id, data) {
     return http.post(`/Schedule/CreateAppointment/${id}`, data);
   }
+  getTailorAvailability(data){
+    return http.post("/Schedule/GetTailorAvailability", data);
+  }
 }
 
   export default new ScheduleDAS();

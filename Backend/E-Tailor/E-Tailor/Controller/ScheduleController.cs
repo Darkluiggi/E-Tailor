@@ -141,5 +141,71 @@ namespace E_Tailor.Controller
             public string name { get; set; }
         }
 
+        /// <summary>
+        /// obtener lista de usuarios
+        /// </summary>
+        /// <param name="appointment"></param>
+        /// <returns></returns> 
+        [HttpPost]
+        public string GetTailorAvailability([FromBody] Appointment appointment)
+        {
+            string result = "";
+            try
+            {
+                var appointments = _context.Appointments.Where(x => x.date == appointment.date && x.estado).ToList();
+                appointment.date = appointment.date.AddHours(appointment.hour.Hour);
+                appointment.date = appointment.date.AddMinutes(appointment.hour.Minute) ;
+                TimeSpan daysDifference = appointment.date.Subtract(DateTime.Now);
+                if (daysDifference.Hours <= 0 )
+                {
+                    result = "Ya no se pueden agendar citas en este horario";
+                    return result;
+                }
+                if (appointment.date.Hour < 9 || appointment.date.Hour>18)
+                {
+                    result = "No se pueden agendar citas fuera del horario de la tienda";
+                    return result;
+                }
+
+                
+                if (appointments.Count==0)
+                {
+                    result = "Horario disponible";
+                    return result;
+                }
+                else
+                {
+                    List<string> errors = new List<string>();
+                    appointments.ForEach(x =>
+                    {
+                        TimeSpan timeDifference = appointment.hour.Subtract(x.hour);
+                        if (timeDifference.TotalMinutes < 30)
+                        {
+                            errors.Add("La cita" + x.id + "se solapa con el horario actual");
+                            
+                        }
+                    });
+                    if (errors.Count > 0)
+                    {
+                        
+                        result = "Ya existe una cita en el horario seleccionado";
+                    }
+                    else
+                    {
+                        result = "Horario disponible";
+                    }
+                    
+                }
+               
+
+            }
+            catch (Exception)
+            {
+                result = "Error al verificar la cita";
+            }
+
+            return result;
+        }
+
     }
 }

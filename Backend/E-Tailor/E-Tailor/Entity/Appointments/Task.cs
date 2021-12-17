@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace E_Tailor.Entity.Appointments
 {
-    public class Cloth : ModelBase
+    public class Task : ModelBase
     {
         public int id { get; set; }
-        public sbyte name { get; set; }
+        public string  name { get; set; }
+        public int price { get; set; }
     }
 }
