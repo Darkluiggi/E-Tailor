@@ -1,0 +1,79 @@
+<template> 
+    <div> 
+    <p class="headline">Mis Citas</p>
+    <table>
+      
+      </table>
+   <tbody>
+     <tr v-for="todo in todos" :key="todo.id">
+     <td>{{todo.date}}</td>
+     <td>{{todo.tailorId}}</td>
+     <td>{{todo.Tipos}}</td>
+     <td>{{todo.Genero}}</td>
+     </tr>
+   </tbody>
+
+
+    </div>
+    
+ 
+</template>
+
+<script>
+
+import ScheduleDAS from "../../services/ScheduleDAS";
+export default {
+   data(){
+     
+   return {
+   user: JSON.parse(localStorage.getItem('user')),
+   todos:null,
+     }
+   },
+   mounted(){
+     console.log(this.user.id)
+     console.log(this.user.name)
+     this.user= JSON.parse(localStorage.getItem('user'))
+     this.getList(this.user.user.id)
+   },
+
+   methods: {
+     getList(id){    
+      ScheduleDAS.getAppointmentsByCustomer(id)
+        .then((response) => {
+          console.log(response.data)
+          this.todos = response.data
+          this.submitted = true
+            })
+       .catch((e) => {
+          console.log(e)
+        });
+       return this.todos
+     },
+
+   }
+
+   }
+   
+
+</script>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+</style>
