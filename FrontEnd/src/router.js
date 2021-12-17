@@ -38,7 +38,14 @@ export default new Router({
       alias: "/Registration",
       name: "Registration",
       component: () => import("./components/core/Registration")
+    }, 
+    {
+      path: "/ScheduleList",
+      alias: "/ScheduleList",
+      name: "ScheduleList",
+      component: () => import("./components/core/ScheduleList")
     },  
+    
     {
       path: "/Login",
       alias: "/Login",
