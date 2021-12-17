@@ -7,6 +7,9 @@ class ScheduleDAS {
   getAppointmentsByCustomer(id){
     return http.get(`/Schedule/GetAppointmentsByCustomer/${id}`)
   }
+  getAppointmentsByTailor(id){
+    return http.get(`/Schedule/GetAppointmentsByTailor/${id}`)
+  }
   saveAppointment(id, data) {
     return http.post(`/Schedule/CreateAppointment/${id}`, data);
   }

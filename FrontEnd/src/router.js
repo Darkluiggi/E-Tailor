@@ -73,6 +73,12 @@ export default new Router({
       name: "ScheduleList",
       component: () => import("./components/core/ScheduleList")
     },  
+    {
+      path: "/WorkSchedule",
+      alias: "/WorkSchedule",
+      name: "WorkSchedule",
+      component: () => import("./components/core/WorkSchedule")
+    },  
     
     {
       path: "/Login",
