@@ -8,6 +8,7 @@ namespace E_Tailor.Entity.Appointments
     public class Cloth : ModelBase
     {
         public int id { get; set; }
-        public sbyte name { get; set; }
+        public string name { get; set; }
+        public string gender { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using E_Tailor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    partial class E_TailorContextModelSnapshot : ModelSnapshot
+    [Migration("20211217182407_clothUpdated")]
+    partial class clothUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +68,9 @@ namespace E_Tailor.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Customerid")
+                        .HasColumnType("int");
+
                     b.Property<bool>("estado")
                         .HasColumnType("bit");
 
@@ -76,6 +81,8 @@ namespace E_Tailor.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Customerid");
 
                     b.ToTable("Clothes");
                 });
@@ -280,6 +287,13 @@ namespace E_Tailor.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Cloth", b =>
+                {
+                    b.HasOne("E_Tailor.Entity.Users.Customer", null)
+                        .WithMany("clothes")
+                        .HasForeignKey("Customerid");
+                });
+
             modelBuilder.Entity("E_Tailor.Entity.Appointments.Registry", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Tailor", null)
@@ -297,7 +311,7 @@ namespace E_Tailor.Migrations
             modelBuilder.Entity("E_Tailor.Entity.Appointments.Ticket", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Customer", "customer")
-                        .WithMany("tickets")
+                        .WithMany()
                         .HasForeignKey("idCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

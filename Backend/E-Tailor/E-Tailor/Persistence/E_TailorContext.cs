@@ -31,6 +31,7 @@ namespace E_Tailor.Persistence
 
             modelBuilder.Entity<Appointment>().ToTable("Apointments");
             modelBuilder.Entity<Cloth>().ToTable("Clothes");
+            modelBuilder.Entity<Entity.Appointments.Task>().ToTable("Tasks");
             modelBuilder.Entity<Ticket>().ToTable("Tickets");
             modelBuilder.Entity<Registry>().ToTable("Registries");
         }
@@ -42,6 +43,7 @@ namespace E_Tailor.Persistence
         public DbSet<Tailor> Tailors { get; set; }
         public DbSet<Appointment > Appointments { get; set; }
         public DbSet<Cloth> Clothes { get; set; }
+        public DbSet<Entity.Appointments.Task> Tasks { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Registry> Registries { get; set; }
     }

@@ -13,14 +13,14 @@ namespace E_Tailor.Entity.Users
     {
         public Customer()
         {
-            clothes = new List<Cloth>();
+            tickets = new List<Ticket>();
             appointments = new List<Appointment>();
         }
         public int id { get; set; }
         [ForeignKey("user")]
         public int idUser { get; set; }
         public User user { get; set; }
-        public List<Cloth> clothes { get; set; }
+        public List<Ticket> tickets { get; set; }
         public List<Appointment> appointments { get; set; }
 
     }
