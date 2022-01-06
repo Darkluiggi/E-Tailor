@@ -27,6 +27,12 @@
           disable-pagination
           :hide-default-footer="true"
         >
+        <template v-slot:[`item.icono`]="{ item }">
+            <v-icon
+                         
+                            v-text="item.icono"
+                            ></v-icon>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editTask(item.id)">mdi-pencil</v-icon>
             <v-icon small @click="deleteTask(item.id)">mdi-delete</v-icon>
@@ -49,6 +55,7 @@ export default {
       title: "",
       headers: [
         { text: "Nombre", align: "start", sortable: false, value: "nombre" },
+        {text: " Icono", align: "start", sortable: false, value: "icono" },
         { text: "Precio", value: "price", sortable: false },
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
@@ -61,7 +68,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.tasks = response.data.map(this.getTasks);
-          console.log(response.data);
+          console.log(this.tasks);
         })
         .catch((e) => {
           console.log(e);
@@ -108,6 +115,7 @@ export default {
       return {
         id: task.id,
         nombre: task.name, 
+        icono: task.icon,
         price:task.price,
         status: task.estado ? "Activo" : "Inactivo", 
       };

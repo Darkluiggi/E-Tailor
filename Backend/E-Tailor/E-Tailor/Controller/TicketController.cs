@@ -25,12 +25,29 @@ namespace E_Tailor.Controller
         }
         /// <summary>
         /// obtener lista de usuarios
-        /// </summary>
+        /// </summary>>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
-        public List<Ticket> GetList()
+        [HttpGet("{id}")]
+        public List<Ticket> GetList(int? id)
         {
-            List<Ticket> model = _context.Tickets.Where(x=> x.estado).Include(x => x.customer).Include(x => x.tailor).ToList();
+            var customers = _context.Costumers.Include(x => x.user).Where(x => x.estado).ToList();
+            var Tailor = _context.Tailors.Include(x => x.user).FirstOrDefault(x => x.idUser == id);
+            List<Ticket> model = _context.Tickets.Where(x => x.estado).Include(x => x.customer).Include(x => x.tailor).Where(x => x.idTailor == Tailor.id).ToList();
+            model.ForEach(x => {
+                x.tailor = Tailor;
+                x.customer = customers.FirstOrDefault(y => y.id == x.idCustomer);
+            });
+            var tasks = _context.Tasks.Where(x => x.estado).ToList();
+            model.ForEach(x=>
+            {
+                var taskIds = x.tasksIds.Split(',').ToList();
+                taskIds.ForEach(y =>
+                {
+                    var task = tasks.FirstOrDefault(z => z.id == Int32.Parse(y));
+                    x.tasks.Add(task);
+                });
+            });
             return model;
         }
 
@@ -60,6 +77,21 @@ namespace E_Tailor.Controller
             return ticket;
         }
 
+        /// <summary>
+        /// obtener user por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public Appointment CloseAppointment(int? id)
+        {
+            var appointment = _context.Appointments.Find(id);
+            appointment.estado = false;
+            _context.Appointments.Update(appointment);
+            _context.SaveChanges();
+
+            return appointment;
+        }
 
         /// <summary>
         /// Crear nuevo user
@@ -70,7 +102,36 @@ namespace E_Tailor.Controller
         {
             try
             {
+                ticket.servicePrice = ticket.tasks.Sum(x => x.price);
+                ticket.tasksIds = "";
+                ticket.tasks.ForEach(x =>
+                {
+                    if (ticket.tasksIds == "")
+                    {
+                        ticket.tasksIds =  x.id.ToString();
+                    }
+                    else
+                    {
+                        ticket.tasksIds = ticket.tasksIds + ',' + x.id.ToString();
+                    }
+                    
+                   
+                });
+                ticket.tasks = null;
                 _context.Tickets.Add(ticket);
+                _context.SaveChanges();
+                var customer = _context.Costumers.First(x => x.id == ticket.idCustomer);
+                if (customer.ticketsIds == null)
+                {
+                    customer.ticketsIds = ticket.id.ToString();
+                }
+                else
+                {
+                    customer.ticketsIds = customer.ticketsIds + ',' + ticket.id;
+                }
+
+                customer.ticketsIds = customer.ticketsIds + ',' + ticket.id;
+                _context.Costumers.Update(customer);
                 _context.SaveChanges();
                 return ticket;
             }

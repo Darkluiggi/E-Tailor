@@ -23,13 +23,11 @@ export default new Router({
     },
     {
       path: "/Users",
-      alias: "/users",
       name: "users",
       component: () => import("./components/Users/Index")
     },
     {
       path: "/AddUser",
-      alias: "/addUsers",
       name: "AddUsers",
       component: () => import("./components/Users/Add")
     }, 
@@ -67,26 +65,22 @@ export default new Router({
     
     {
       path: "/Registration",
-      alias: "/Registration",
       name: "Registration",
       component: () => import("./components/core/Registration")
     }, 
     {
       path: "/ScheduleList",
-      alias: "/ScheduleList",
       name: "ScheduleList",
       component: () => import("./components/core/ScheduleList")
     },  
     {
       path: "/WorkSchedule",
-      alias: "/WorkSchedule",
       name: "WorkSchedule",
       component: () => import("./components/core/WorkSchedule")
     },  
     
     {
       path: "/Login",
-      alias: "/Login",
       name: "Login",
       component: () => import("./components/core/Login")
     }, 
@@ -96,10 +90,14 @@ export default new Router({
       component: () => import("./components/core/Schedule")
     },
     {
-      path: "/Clothes",
-      alias: "/Clothes",
-      name: "Clothes",
-      component: () => import("./components/core/Clothes")
+      path: "/Appointment",
+      name: "Appointment",
+      component: () => import("./components/core/Appointment")
+    },
+    {
+      path: "/WorkerTickets",
+      name: "WorkerTickets",
+      component: () => import("./components/Tickets/Index")
     },
   ]
 });

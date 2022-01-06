@@ -20,6 +20,8 @@ namespace E_Tailor.Entity.Users
         [ForeignKey("user")]
         public int idUser { get; set; }
         public User user { get; set; }
+        public string ticketsIds { get; set; }
+        [NotMapped]
         public List<Ticket> tickets { get; set; }
         public List<Appointment> appointments { get; set; }
 

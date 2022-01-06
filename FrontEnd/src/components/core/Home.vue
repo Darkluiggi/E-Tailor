@@ -31,7 +31,7 @@ export default {
     
    mounted() {
     this.user= JSON.parse(localStorage.getItem('user'));
-      console.log(this.$route.params.reload);
+     
     if(this.$route.params.reload){
       this.$router.go();
     }

@@ -10,6 +10,12 @@
           label="Nombre"
           required
         ></v-text-field>
+         <v-text-field
+          v-model="task.icono"
+          :rules="[(v) => !!v || 'Icono is required']"
+          label="Mdi-Icon"
+          required
+        ></v-text-field>
         <v-text-field
           v-model="task.precio"
           :rules="[(v) => !!v || 'precio is required']"
@@ -49,6 +55,7 @@ export default {
     return {
       task:{
         nombre:'',
+        icono:'',
         precio:'',
       },      
       submitted: false,
@@ -59,8 +66,8 @@ export default {
     saveTask() {
       var data = {
         name: this.task.nombre,
-        price:  parseInt(this.task.precio, 10)
-        
+        price:  parseInt(this.task.precio, 10),
+        icon: this.task.icono
        
       };
       console.log(typeof data.price)

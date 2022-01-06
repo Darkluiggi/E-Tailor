@@ -18,7 +18,7 @@
         >
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editUser(item.id)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteUser(item.id)">mdi-delete</v-icon>
+            <v-icon small @click="deleteSchedule(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </v-card>
@@ -80,6 +80,19 @@ export default {
     },
     AddAppointment(){
        return this.$router.push("/AddSchedule");
+    },
+    
+    deleteSchedule(id)
+    {
+      console.log(id);
+      ScheduleDAS.delete(id)
+      .then((response) => {
+          console.log(response.data)
+         this.getList();
+            })
+       .catch((e) => {
+          console.log(e)
+        });
     }
 
    }

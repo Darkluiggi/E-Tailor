@@ -4,14 +4,16 @@ using E_Tailor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    partial class E_TailorContextModelSnapshot : ModelSnapshot
+    [Migration("20220105225948_addedIconToTasks")]
+    partial class addedIconToTasks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,6 +109,9 @@ namespace E_Tailor.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Ticketid")
+                        .HasColumnType("int");
+
                     b.Property<bool>("estado")
                         .HasColumnType("bit");
 
@@ -120,6 +125,8 @@ namespace E_Tailor.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Ticketid");
 
                     b.ToTable("Tasks");
                 });
@@ -145,9 +152,6 @@ namespace E_Tailor.Migrations
 
                     b.Property<int>("servicePrice")
                         .HasColumnType("int");
-
-                    b.Property<string>("tasksIds")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -221,9 +225,6 @@ namespace E_Tailor.Migrations
                     b.Property<int>("idUser")
                         .HasColumnType("int");
 
-                    b.Property<string>("ticketsIds")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("id");
 
                     b.HasIndex("idUser");
@@ -291,10 +292,17 @@ namespace E_Tailor.Migrations
                         .HasForeignKey("Tailorid");
                 });
 
+            modelBuilder.Entity("E_Tailor.Entity.Appointments.Task", b =>
+                {
+                    b.HasOne("E_Tailor.Entity.Appointments.Ticket", null)
+                        .WithMany("tasks")
+                        .HasForeignKey("Ticketid");
+                });
+
             modelBuilder.Entity("E_Tailor.Entity.Appointments.Ticket", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Customer", "customer")
-                        .WithMany()
+                        .WithMany("tickets")
                         .HasForeignKey("idCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

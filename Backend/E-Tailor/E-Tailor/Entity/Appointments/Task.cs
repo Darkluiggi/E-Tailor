@@ -10,5 +10,6 @@ namespace E_Tailor.Entity.Appointments
         public int id { get; set; }
         public string  name { get; set; }
         public int price { get; set; }
+        public string icon { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using E_Tailor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    partial class E_TailorContextModelSnapshot : ModelSnapshot
+    [Migration("20220106003952_removedtasks")]
+    partial class removedtasks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,9 +223,6 @@ namespace E_Tailor.Migrations
                     b.Property<int>("idUser")
                         .HasColumnType("int");
 
-                    b.Property<string>("ticketsIds")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("id");
 
                     b.HasIndex("idUser");
@@ -294,7 +293,7 @@ namespace E_Tailor.Migrations
             modelBuilder.Entity("E_Tailor.Entity.Appointments.Ticket", b =>
                 {
                     b.HasOne("E_Tailor.Entity.Users.Customer", "customer")
-                        .WithMany()
+                        .WithMany("tickets")
                         .HasForeignKey("idCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

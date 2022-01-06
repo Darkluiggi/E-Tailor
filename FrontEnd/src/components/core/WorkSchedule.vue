@@ -13,7 +13,7 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editUser(item.id)">mdi-pencil</v-icon>
+            <v-icon small class="mr-2" @click="attendSchedule(item.id)">mdi-calendar-arrow-right</v-icon>
             <v-icon small @click="deleteUser(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
@@ -52,7 +52,6 @@ export default {
      getList(id){    
       ScheduleDAS.getAppointmentsByTailor(id)
         .then((response) => {
-          console.log(response.data)
           this.todos =  response.data.map(this.getAppointment);
           this.submitted = true
             })
@@ -71,8 +70,18 @@ export default {
         Genero: appointment.gender,
 
       };
+     
     },
-   
+    attendSchedule(id){
+        ScheduleDAS.getAppointmentById(id).then((response) => {
+          console.log(response.data)
+          this.$router.push({ name: "Appointment", params: { data: response.data } });
+          
+            })
+       .catch((e) => {
+          console.log(e)
+        });
+      }
 
    }
 

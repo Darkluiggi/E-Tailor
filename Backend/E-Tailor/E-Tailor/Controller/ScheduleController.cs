@@ -59,8 +59,8 @@ namespace E_Tailor.Controller
         {
             List<Appointment> result = new List<Appointment>();
 
-            var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.idUser == id);
-            result= costumer.appointments;
+            var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.idUser == id && x.estado);
+            result= costumer.appointments.Where(x=> x.estado).ToList();
             return result;
         }
         /// <summary>
@@ -81,11 +81,18 @@ namespace E_Tailor.Controller
         /// Crear nuevo rol
         /// </summary>
         /// <param name="id"></param>
-        [HttpPost]
+        [HttpGet("{id}")]
         public Appointment GetAppointmentById(int id)
         {
+
+            var costumers = _context.Costumers.Include(x => x.appointments).Include(x=> x.user).ToList();
             Appointment result = new Appointment();
-            var appointment = _context.Appointments.FirstOrDefault(x => x.idTailor == id && x.estado);
+            
+            var appointment = _context.Appointments.Include(x=> x.tailor).FirstOrDefault(x => x.id == id && x.estado);
+            var tailor = _context.Tailors.Include(x => x.user).First(x=> x.id==appointment.idTailor);
+            appointment.customer = costumers.FirstOrDefault(x => x.appointments.Any(y => y.id == appointment.id)).user.name;
+            appointment.customerId = costumers.FirstOrDefault(x => x.appointments.Any(y => y.id == appointment.id)).id;
+            appointment.tailor.user = tailor.user;
             result = appointment;
             return result;
         }
@@ -157,16 +164,16 @@ namespace E_Tailor.Controller
                 appointment.date = appointment.date.AddHours(appointment.hour.Hour);
                 appointment.date = appointment.date.AddMinutes(appointment.hour.Minute) ;
                 TimeSpan daysDifference = appointment.date.Subtract(DateTime.Now);
-                if (daysDifference.Hours <= 0 )
-                {
-                    result = "Ya no se pueden agendar citas en este horario";
-                    return result;
-                }
-                if (appointment.date.Hour < 9 || appointment.date.Hour>18)
-                {
-                    result = "No se pueden agendar citas fuera del horario de la tienda";
-                    return result;
-                }
+                //if (daysDifference.Hours <= 0 )
+                //{
+                //    result = "Ya no se pueden agendar citas en este horario";
+                //    return result;
+                //}
+                //if (appointment.date.Hour < 9 || appointment.date.Hour>18)
+                //{
+                //    result = "No se pueden agendar citas fuera del horario de la tienda";
+                //    return result;
+                //}
 
                 
                 if (appointments.Count==0)
@@ -207,6 +214,19 @@ namespace E_Tailor.Controller
 
             return result;
         }
+        /// <summary>
+        /// Borrar un user
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            Appointment appointment = _context.Appointments.Find(id);
+            appointment.estado = false;
+            _context.Appointments.Update(appointment);
+            _context.SaveChanges();
+        }
+
 
     }
 }

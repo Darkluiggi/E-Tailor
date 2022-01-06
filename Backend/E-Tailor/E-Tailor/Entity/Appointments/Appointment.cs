@@ -25,6 +25,9 @@ namespace E_Tailor.Entity.Appointments
         public int idTailor { get; set; }
         public Tailor tailor { get; set; }
         public bool status { get; set; }
-
+        [NotMapped]
+        public string customer { get; set; }
+        [NotMapped]
+        public int customerId { get; internal set; }
     }
 }

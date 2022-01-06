@@ -16,6 +16,12 @@ class ScheduleDAS {
   getTailorAvailability(data){
     return http.post("/Schedule/GetTailorAvailability", data);
   }
+  getAppointmentById(id){
+    return http.get(`/Schedule/GetAppointmentById/${id}`)
+  }
+  delete(id){
+    return http.delete(`/Schedule/Delete/${id}`);
+  }
 }
 
   export default new ScheduleDAS();
