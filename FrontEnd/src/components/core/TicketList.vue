@@ -39,7 +39,7 @@ export default {
         { text: "Precio", value: "servicePrice", sortable: false },
         { text: "Customer", value: "customerName" },
         {text:  "Tailor", value: "tailor" },
-        { text: "Precio", value: "servicePrice"},
+        
         { text: "Status", value: "status" },
         { text: "Actions", value: "actions" },
         { text: "Tasks", value: "tasks" },
