@@ -202,7 +202,7 @@ export default {
           action: this.goToWorkerTickets,
         },
         {
-          title: "Citas",
+          title: "Citas de la tienda",
           icon: "mdi-office-building",
           rol: [ "Administrador"],
           action: this.goToScheduleListMa,
@@ -290,7 +290,7 @@ export default {
         return this.$router.push("/WorkerTickets");
       },
       goToScheduleListMa(){
-        return this.$router.push("/ScheduleListMa");
+        return this.$router.push("/ScheduleListMan");
       },
       getList(id){    
       ScheduleDAS.getAppointmentsByTailor(id)

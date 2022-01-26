@@ -25,6 +25,9 @@ class ScheduleDAS {
   Deliverticket(id){
     return http.post(`/Schedule/Deliverticket/${id}`);
   }
+  GetStoreSchedule(){
+    return http.get("/Schedule/GetStoreSchedule");
+  }
 }
 
   export default new ScheduleDAS();

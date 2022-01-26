@@ -224,10 +224,15 @@ namespace E_Tailor.Controller
             List<Appointment> result = new List<Appointment>();
             var appointments = _context.Appointments.Include(x => x.tailor).Where(x => x.estado).ToList();
             List<Customer> customers = _context.Costumers.Include(x => x.user).Where(x => x.estado).ToList();
+            var users = _context.Users.ToList();
             appointments.ForEach(x =>
             {
                 x.customer = customers.FirstOrDefault(y => y.appointments.Any(z => z.id == x.id));
 
+            });
+            appointments.ForEach(x =>
+            {
+                x.tailor.user = users.Where(y => y.id == x.tailor.idUser).FirstOrDefault();
             });
             appointments.ForEach(x =>
             {

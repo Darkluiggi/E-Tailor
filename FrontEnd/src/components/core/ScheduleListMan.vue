@@ -33,7 +33,7 @@ export default {
    user: JSON.parse(localStorage.getItem('user')),
    todos:[],
     headers: [
-        { text: "Cliente", value: "", sortable: false },
+        { text: "Cliente", value: "Customer", sortable: false },
         { text: "Tailor", value: "Tailor", sortable: false },
         { text: "Fecha", align: "start", sortable: false, value: "date" },
         { text: "Hora", value: "hour", sortable: false },
@@ -44,14 +44,12 @@ export default {
      }
    },
    mounted(){
-     console.log(this.user.id)
-     console.log(this.user.name)
      this.user= JSON.parse(localStorage.getItem('user'))
-     this.getList(this.user.user.id)
+     this.getList()
    },
 
    methods: {
-     getList(){    
+     getList(){  
       ScheduleDAS.GetStoreSchedule()
         .then((response) => {
           console.log(response.data)
@@ -64,14 +62,18 @@ export default {
        return this.todos
      },
       getAppointment(appointment) {
+        
+        console.log(appointment);
       return {
         id: appointment.id,
         date:  appointment.date.split('T')[0],        
         hour: appointment.hour.split('T')[1],
         tailorId: appointment.tailorId,
-        Tailor: appointment.Tailor,
+        Tailor: appointment.tailor.user.name,
         Tipos: appointment.serviceType,
         Genero: appointment.gender,
+        Customer: appointment.customer.user.name,
+
       };
     },
   
