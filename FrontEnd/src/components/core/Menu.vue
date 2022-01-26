@@ -201,6 +201,12 @@ export default {
           rol: [ "Tailor"],
           action: this.goToWorkerTickets,
         },
+        {
+          title: "Citas",
+          icon: "mdi-office-building",
+          rol: [ "Administrador"],
+          action: this.goToScheduleListMa,
+        },
     
         { title: "Photos",
          icon: "mdi-image",
@@ -282,6 +288,9 @@ export default {
       },
       goToWorkerTickets(){
         return this.$router.push("/WorkerTickets");
+      },
+      goToScheduleListMa(){
+        return this.$router.push("/ScheduleListMa");
       },
       getList(id){    
       ScheduleDAS.getAppointmentsByTailor(id)
