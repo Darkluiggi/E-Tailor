@@ -51,8 +51,8 @@ export default {
    },
 
    methods: {
-     getList(id){    
-      ScheduleDAS.getAppointmentsByCustomer(id)
+     getList(){    
+      ScheduleDAS.GetStoreSchedule()
         .then((response) => {
           console.log(response.data)
           this.todos =  response.data.map(this.getAppointment);
