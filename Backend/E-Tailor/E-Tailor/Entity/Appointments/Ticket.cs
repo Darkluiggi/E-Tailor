@@ -22,6 +22,7 @@ namespace E_Tailor.Entity.Appointments
         public int idCustomer { get; set; }
         public Customer customer { get; set; }
         public DateTime deliveryDate { get; set; }
+        public string status { get; set; }
         public string tasksIds { get; set; }
         [NotMapped]
         public List<Task> tasks { get; set; }

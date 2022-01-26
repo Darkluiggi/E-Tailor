@@ -247,7 +247,9 @@ namespace E_Tailor.Controller
         {
             try
             {
-                var ticket = _context.Tickets.Where(x => x.id == id).FirstOrDefault();
+                Ticket ticket = _context.Tickets.Where(x => x.id == id).FirstOrDefault();
+                ticket.status = "Entregado";
+                ticket.estado = false;
                 return "Se ha finalizado el servicio correctamente";
             }
             catch (Exception)
