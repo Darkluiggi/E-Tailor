@@ -4,6 +4,9 @@ class TicketDAS {
   GetTicketsByTailor(id) {
     return http.get(`/Ticket/GetList/${id}`);
   }
+  GetTicketsByCustomer(id) {
+    return http.get(`/Schedule/GetTicketsByCustomer/${id}`);
+  }
   create(data) {
     return http.post("/Ticket/Create", data);
   }

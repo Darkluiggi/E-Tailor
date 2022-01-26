@@ -74,6 +74,11 @@ export default new Router({
       component: () => import("./components/core/ScheduleList")
     },  
     {
+      path: "/TicketList",
+      name: "TicketList",
+      component: () => import("./components/core/TicketList")
+    },  
+    {
       path: "/WorkSchedule",
       name: "WorkSchedule",
       component: () => import("./components/core/WorkSchedule")
