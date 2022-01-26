@@ -333,7 +333,7 @@ export default {
       this.appointmentList = this.getList(this.user.user.id);
        
       }
-      }, 3000);
+      }, 300000);
    
     window.setInterval(() => {
      

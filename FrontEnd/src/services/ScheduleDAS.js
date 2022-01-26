@@ -22,6 +22,9 @@ class ScheduleDAS {
   delete(id){
     return http.delete(`/Schedule/Delete/${id}`);
   }
+  Deliverticket(id){
+    return http.post(`/Schedule/Deliverticket/${id}`);
+  }
 }
 
   export default new ScheduleDAS();

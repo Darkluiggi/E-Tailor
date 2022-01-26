@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import ScheduleDAS from '../../services/ScheduleDAS';
 import TicketDAS from "../../services/TicketDAS";
 export default {
   name: "TicketsIndex",
@@ -97,6 +98,15 @@ export default {
       this.retrieveList();
     },
 
+    Deliverticket(id){
+      ScheduleDAS.Deliverticket(id).then((response) => {
+         console.log(response);
+         this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
     
     searchTitle() {
       if(this.title==null){
