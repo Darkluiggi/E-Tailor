@@ -52,15 +52,29 @@ namespace E_Tailor.Controller
         }
 
         /// <summary>
-        /// obtener lista de usuarios
+        /// obtener user por id
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns> 
-        [HttpGet("{name}")]
-        public List<User> FindByName(string name)
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public List<Ticket> GetTicketsByCustomer(int? id)
         {
-            List<User> model = _context.Users.Where(x => x.estado).Include(x => x.rol).Where(x=> x.name.ToUpper().Contains(name.ToUpper())).ToList();
-            return model;
+
+            var costumer = _context.Costumers.Include(x => x.user).FirstOrDefault(x => x.id == id);
+            costumer.tickets = new List<Ticket>();
+            var tickets = _context.Tickets.ToList();
+            var userTickets = costumer.ticketsIds.Split(',').ToList();
+            userTickets.ForEach(x=>
+            {
+                Ticket ticket = new Ticket();
+                ticket = tickets.FirstOrDefault(y => y.id == Int32.Parse(x));
+                costumer.tickets.Add(ticket);
+            });
+            costumer.tickets.ForEach(x =>
+            {
+                x.customer = new Entity.Users.Customer();
+            });
+            return costumer.tickets;
         }
 
         /// <summary>

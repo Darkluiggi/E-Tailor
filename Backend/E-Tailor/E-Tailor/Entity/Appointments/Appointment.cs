@@ -12,7 +12,7 @@ namespace E_Tailor.Entity.Appointments
     {
         public Appointment()
         {
-            status = true;
+            status = "Programada";
         }
         public int id { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MMMM-yyyy}")]
@@ -24,10 +24,12 @@ namespace E_Tailor.Entity.Appointments
         [ForeignKey("tailor")]
         public int idTailor { get; set; }
         public Tailor tailor { get; set; }
-        public bool status { get; set; }
+        public string status { get; set; }
         [NotMapped]
-        public string customer { get; set; }
+        public Customer customer { get; set; }
         [NotMapped]
-        public int customerId { get; internal set; }
+        public int customerId { get;  set; }
+        [NotMapped]
+        public string customerName { get; set; }
     }
 }

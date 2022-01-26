@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Tailor.Controller
-{   
+{
     /// <summary>
     /// Servicio Expuesto en WebApi de TODO
     /// </summary>
@@ -31,11 +31,11 @@ namespace E_Tailor.Controller
         /// <param name="id"></param>
         /// <param name="appointment"></param>
         [HttpPost("{id}")]
-        public bool CreateAppointment(int id,[FromBody] Appointment appointment)
+        public bool CreateAppointment(int id, [FromBody] Appointment appointment)
         {
             try
             {
-                var user= _context.Users.FirstOrDefault(x => x.id == id);
+                var user = _context.Users.FirstOrDefault(x => x.id == id);
                 var costumer = _context.Costumers.FirstOrDefault(x => x.idUser == user.id);
                 costumer.appointments.Add(appointment);
                 _context.Costumers.Update(costumer);
@@ -46,7 +46,7 @@ namespace E_Tailor.Controller
             {
                 return false;
             }
-           
+
         }
 
 
@@ -60,7 +60,7 @@ namespace E_Tailor.Controller
             List<Appointment> result = new List<Appointment>();
 
             var costumer = _context.Costumers.Include(x => x.appointments).FirstOrDefault(x => x.idUser == id && x.estado);
-            result= costumer.appointments.Where(x=> x.estado).ToList();
+            result = costumer.appointments.Where(x => x.estado).ToList();
             return result;
         }
         /// <summary>
@@ -85,12 +85,12 @@ namespace E_Tailor.Controller
         public Appointment GetAppointmentById(int id)
         {
 
-            var costumers = _context.Costumers.Include(x => x.appointments).Include(x=> x.user).ToList();
+            var costumers = _context.Costumers.Include(x => x.appointments).Include(x => x.user).ToList();
             Appointment result = new Appointment();
-            
-            var appointment = _context.Appointments.Include(x=> x.tailor).FirstOrDefault(x => x.id == id && x.estado);
-            var tailor = _context.Tailors.Include(x => x.user).First(x=> x.id==appointment.idTailor);
-            appointment.customer = costumers.FirstOrDefault(x => x.appointments.Any(y => y.id == appointment.id)).user.name;
+
+            var appointment = _context.Appointments.Include(x => x.tailor).FirstOrDefault(x => x.id == id && x.estado);
+            var tailor = _context.Tailors.Include(x => x.user).First(x => x.id == appointment.idTailor);
+            appointment.customerName = costumers.FirstOrDefault(x => x.appointments.Any(y => y.id == appointment.id)).user.name;
             appointment.customerId = costumers.FirstOrDefault(x => x.appointments.Any(y => y.id == appointment.id)).id;
             appointment.tailor.user = tailor.user;
             result = appointment;
@@ -107,8 +107,8 @@ namespace E_Tailor.Controller
             bool result = false;
             try
             {
-                var appointment= _context.Appointments.Find(id);
-                appointment.status = false;
+                var appointment = _context.Appointments.Find(id);
+                appointment.status = "Cancelada";
                 _context.Appointments.Update(appointment);
                 _context.SaveChanges();
                 result = true;
@@ -130,16 +130,16 @@ namespace E_Tailor.Controller
         public List<TailorList> GetTailorList()
         {
 
-            List<Tailor> model = _context.Tailors.Include(x=> x.user).Where(x => x.estado).ToList();
+            List<Tailor> model = _context.Tailors.Include(x => x.user).Where(x => x.estado).ToList();
             List<TailorList> result = new List<TailorList>();
-            model.ForEach (x =>
-             {
-                 TailorList data = new TailorList();
-                 data.id = x.id;
-                 data.name = x.user.name;
-                 result.Add(data);
+            model.ForEach(x =>
+            {
+                TailorList data = new TailorList();
+                data.id = x.id;
+                data.name = x.user.name;
+                result.Add(data);
 
-             });            
+            });
 
             return result;
         }
@@ -162,7 +162,7 @@ namespace E_Tailor.Controller
             {
                 var appointments = _context.Appointments.Where(x => x.date == appointment.date && x.estado).ToList();
                 appointment.date = appointment.date.AddHours(appointment.hour.Hour);
-                appointment.date = appointment.date.AddMinutes(appointment.hour.Minute) ;
+                appointment.date = appointment.date.AddMinutes(appointment.hour.Minute);
                 TimeSpan daysDifference = appointment.date.Subtract(DateTime.Now);
                 //if (daysDifference.Hours <= 0 )
                 //{
@@ -175,8 +175,8 @@ namespace E_Tailor.Controller
                 //    return result;
                 //}
 
-                
-                if (appointments.Count==0)
+
+                if (appointments.Count == 0)
                 {
                     result = "Horario disponible";
                     return result;
@@ -190,21 +190,21 @@ namespace E_Tailor.Controller
                         if (timeDifference.TotalMinutes < 30)
                         {
                             errors.Add("La cita" + x.id + "se solapa con el horario actual");
-                            
+
                         }
                     });
                     if (errors.Count > 0)
                     {
-                        
+
                         result = "Ya existe una cita en el horario seleccionado";
                     }
                     else
                     {
                         result = "Horario disponible";
                     }
-                    
+
                 }
-               
+
 
             }
             catch (Exception)
@@ -214,6 +214,49 @@ namespace E_Tailor.Controller
 
             return result;
         }
+
+        /// <summary>
+        /// Obtener lista de citas de la tienda
+        /// </summary>
+        [HttpGet]
+        public List<Appointment> GetStoreSchedule()
+        {
+            List<Appointment> result = new List<Appointment>();
+            var appointments = _context.Appointments.Include(x => x.tailor).Where(x => x.estado).ToList();
+            List<Customer> customers = _context.Costumers.Include(x => x.user).Where(x => x.estado).ToList();
+            appointments.ForEach(x =>
+            {
+                x.customer = customers.FirstOrDefault(y => y.appointments.Any(z => z.id == x.id));
+
+            });
+            appointments.ForEach(x =>
+            {
+                x.customer.appointments = new List<Appointment>();
+
+            });
+            result = appointments;
+            return result;
+        }
+
+        /// <summary>
+        /// Obtener lista de citas de la tienda
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpGet("{id}")]
+        public string Deliverticket(int id)
+        {
+            try
+            {
+                var ticket = _context.Tickets.Where(x => x.id == id).FirstOrDefault();
+                return "Se ha finalizado el servicio correctamente";
+            }
+            catch (Exception)
+            {
+
+                return "No ha sido  posible finalizar el servicio";
+            }
+        }
+
         /// <summary>
         /// Borrar un user
         /// </summary>
@@ -226,6 +269,7 @@ namespace E_Tailor.Controller
             _context.Appointments.Update(appointment);
             _context.SaveChanges();
         }
+
 
 
     }

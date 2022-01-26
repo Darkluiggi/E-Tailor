@@ -94,7 +94,7 @@
     </v-row>
 
     <v-col align="center">
-      <v-btn color="primary" class="mt-3" align="center" @click="guardarTcket()"
+      <v-btn color="primary" class="mt-3" align="center" @click="guardarTicket()"
         >Guardar</v-btn
       >
     </v-col>
@@ -122,6 +122,7 @@ export default {
     loading: false,
     search: "",
     selected: [],
+    menu:{},
   }),
 
   computed: {
@@ -201,7 +202,7 @@ export default {
     save(date) {
       this.$refs.menu.save(date);
     },
-    guardarTcket() {
+    guardarTicket() {
       var data = {
         idTailor: this.dataSchedule.tailor.id,
         idCustomer: this.dataSchedule.customerId,

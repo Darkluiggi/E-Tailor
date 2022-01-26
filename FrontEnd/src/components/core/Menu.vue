@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
     <v-app-bar color="#191919" dark x-small>
       <v-app-bar-nav-icon
@@ -77,6 +78,7 @@
      
     </v-navigation-drawer>
 
+  </div>
     
 <div class="modal-backdrop" v-show="modal">
     <div class="modal">
@@ -113,8 +115,7 @@
     </div>
   </div>
 
-
-  </div>
+</div>
 
 
 
