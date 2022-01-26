@@ -68,11 +68,19 @@ export default new Router({
       name: "Registration",
       component: () => import("./components/core/Registration")
     }, 
+
     {
       path: "/ScheduleList",
       name: "ScheduleList",
       component: () => import("./components/core/ScheduleList")
     },  
+
+    {
+      path: "/ScheduleListMan",
+      name: "ScheduleListMan",
+      component: () => import("./components/core/ScheduleListMan")
+    },
+
     {
       path: "/WorkSchedule",
       name: "WorkSchedule",
@@ -89,11 +97,13 @@ export default new Router({
       name: "Schedule",
       component: () => import("./components/core/Schedule")
     },
+
     {
       path: "/Appointment",
       name: "Appointment",
       component: () => import("./components/core/Appointment")
     },
+    
     {
       path: "/WorkerTickets",
       name: "WorkerTickets",
