@@ -242,12 +242,16 @@ namespace E_Tailor.Controller
         /// Obtener lista de citas de la tienda
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("{id}")]
+        [HttpPost("{id}")]
         public string Deliverticket(int id)
         {
             try
             {
-                var ticket = _context.Tickets.Where(x => x.id == id).FirstOrDefault();
+                Ticket ticket = _context.Tickets.Where(x => x.id == id).FirstOrDefault();
+                ticket.status = "Entregado";
+                ticket.estado = false;
+                _context.Tickets.Update(ticket);
+                _context.SaveChanges();
                 return "Se ha finalizado el servicio correctamente";
             }
             catch (Exception)

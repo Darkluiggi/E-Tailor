@@ -49,6 +49,7 @@
        <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editTicket(item.id)">mdi-clipboard-arrow-right-outline</v-icon>
             <v-icon small @click="deleteTicket(item.id)">mdi-delete</v-icon>
+            <v-icon small @click="Deliverticket(item.id)">mdi-account-check-outline</v-icon>
           </template>
     </v-data-table>
  </v-card>
@@ -57,6 +58,7 @@
 </template>
 
 <script>
+import ScheduleDAS from '../../services/ScheduleDAS';
 import TicketDAS from "../../services/TicketDAS";
 export default {
   name: "TicketsIndex",
@@ -96,6 +98,15 @@ export default {
       this.retrieveList();
     },
 
+    Deliverticket(id){
+      ScheduleDAS.Deliverticket(id).then((response) => {
+         console.log(response);
+         this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
     
     searchTitle() {
       if(this.title==null){
