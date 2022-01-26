@@ -82,6 +82,11 @@ export default new Router({
     },
 
     {
+      path: "/TicketList",
+      name: "TicketList",
+      component: () => import("./components/core/TicketList")
+    },  
+    {
       path: "/WorkSchedule",
       name: "WorkSchedule",
       component: () => import("./components/core/WorkSchedule")
