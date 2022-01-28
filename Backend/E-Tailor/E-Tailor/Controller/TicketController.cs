@@ -60,20 +60,33 @@ namespace E_Tailor.Controller
         public List<Ticket> GetTicketsByCustomer(int? id)
         {
 
-            var costumer = _context.Costumers.Include(x => x.user).FirstOrDefault(x => x.id == id);
+            var costumer = _context.Costumers.Include(x => x.user).FirstOrDefault(x => x.idUser == id);
             costumer.tickets = new List<Ticket>();
             var tickets = _context.Tickets.ToList();
             var userTickets = costumer.ticketsIds.Split(',').ToList();
+            var tailors = _context.Tailors.Include(x=> x.user).ToList();
+            var tasks = _context.Tasks.ToList();
             userTickets.ForEach(x=>
             {
                 Ticket ticket = new Ticket();
                 ticket = tickets.FirstOrDefault(y => y.id == Int32.Parse(x));
+                ticket.tailor = tailors.FirstOrDefault(x => x.id == ticket.idTailor);
                 costumer.tickets.Add(ticket);
             });
             costumer.tickets.ForEach(x =>
             {
                 x.customer = new Entity.Users.Customer();
+                costumer.tickets.ForEach(y => {
+                   var taskIds = y.tasksIds.Split(',').ToList();
+                    taskIds.ForEach(z =>
+                    {
+                        y.tasks.Add(tasks.FirstOrDefault(w=> w.id==Int32.Parse(z)));
+                    });
+                });
             });
+
+
+
             return costumer.tickets;
         }
 
@@ -143,8 +156,7 @@ namespace E_Tailor.Controller
                 {
                     customer.ticketsIds = customer.ticketsIds + ',' + ticket.id;
                 }
-
-                customer.ticketsIds = customer.ticketsIds + ',' + ticket.id;
+                ticket.status = "Creado";
                 _context.Costumers.Update(customer);
                 _context.SaveChanges();
                 return ticket;

@@ -42,8 +42,6 @@ export default {
      }
    },
    mounted(){
-     console.log(this.user.id)
-     console.log(this.user.name)
      this.user= JSON.parse(localStorage.getItem('user'))
      this.getList(this.user.user.id)
    },

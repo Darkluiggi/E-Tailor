@@ -27,17 +27,16 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
-          v-model="ticket.date"
+         v-model="ticket.deliveryDate"
           label="Fecha de Entrega"
           prepend-icon="mdi-calendar"
-          readonly
           v-bind="attrs"
           v-on="on"
           outlined
         ></v-text-field>
       </template>
       <v-date-picker
-        v-model="ticket.date"
+        v-model="ticket.deliveryDate"
         max="2025-02-01"
         :min="
           new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -149,7 +148,8 @@ export default {
     this.dataSchedule = this.$route.params.data;
     this.retrieveList();
     this.getTypes();
-    this.ticket.cliente = this.dataSchedule.customer;
+    console.log(this.dataSchedule);
+    this.ticket.cliente = this.dataSchedule.customerName;
     this.ticket.tailor = this.dataSchedule.tailor.user.name;
   },
 
@@ -171,7 +171,6 @@ export default {
     getTypes() {
       ClothDAS.getAll()
         .then((response) => {
-          console.log(response.data);
           this.Tipo = response.data;
         })
         .catch((e) => {
@@ -207,25 +206,24 @@ export default {
         idTailor: this.dataSchedule.tailor.id,
         idCustomer: this.dataSchedule.customerId,
         tasks: this.selected,
-        deliveryDate: this.ticket.date,
+        deliveryDate: this.ticket.deliveryDate,
       };
       console.log(data);
+
       TicketDAS.create(data)
         .then((response) => {
           console.log(response);
           TicketDAS.closeAppointment(this.$route.params.data.id)
-          .then((response) => {
-          console.log(response.data);
-          this.$router.push("/WorkSchedule");
-        })
-        .catch((e) => {
-          console.log(e);
+                    .then((response) => {
+                                console.log(response.data);
+                                this.$router.push("/WorkSchedule");
+                   }).catch((e) => {
+                       console.log(e);
+                 });
+              }).catch((e) => {
+                   console.log(e);
         });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
+    },  
   },
 };
 </script>

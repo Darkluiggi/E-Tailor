@@ -201,6 +201,12 @@ export default {
           rol: [ "Tailor"],
           action: this.goToWorkerTickets,
         },
+         {
+          title: "Lista de tickets",
+          icon: "mdi-office-building",
+          rol: [ "Cliente"],
+          action: this.goToTiketList,
+        },
         {
           title: "Citas de la tienda",
           icon: "mdi-office-building",
@@ -292,6 +298,9 @@ export default {
       goToScheduleListMa(){
         return this.$router.push("/ScheduleListMan");
       },
+      goToTiketList(){
+        return this.$router.push("/TicketList");
+      },
       getList(id){    
       ScheduleDAS.getAppointmentsByTailor(id)
         .then((response) => {
@@ -342,7 +351,7 @@ export default {
       this.appointmentList = this.getList(this.user.user.id);
        
       }
-      }, 300000);
+      }, 30000);
    
     window.setInterval(() => {
      
@@ -400,7 +409,7 @@ var today = new Date();
         }
           
        }
-      }, 3000);
+      }, 30000);
      
   },
   created() {

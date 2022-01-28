@@ -37,28 +37,25 @@ export default {
     headers: [
        
         { text: "Precio", value: "servicePrice", sortable: false },
-        { text: "Customer", value: "customerName" },
         {text:  "Tailor", value: "tailor" },
         { text: "Status", value: "status" },
-        { text: "Actions", value: "actions" },
         { text: "Tasks", value: "tasks" },
-        { text: "estado", value: "estado" },
+        { text: "Actions", value: "actions" },
        
       ],
      }
    },
    mounted(){
-     console.log(this.user.id)
-     console.log(this.user.name)
      this.user= JSON.parse(localStorage.getItem('user'))
      this.getList(this.user.user.id)
+  
    },
    methods: {
      getList(id){    
-      TicketDAS.GetTicketsByCostumer(id)
+      TicketDAS.GetTicketsByCustomer(id)
         .then((response) => {
-          console.log(response.data)
           this.todos =  response.data.map(this.getTickets);
+           console.log(this.todos);
           this.submitted = true
             })
        .catch((e) => {
@@ -67,14 +64,14 @@ export default {
        return this.todos
      },
     getTickets(ticket) {
+      console.log(ticket);
       return {
         id: ticket.id,
-        customer: ticket.customer.user.name, 
         tailor: ticket.tailor.user.name,
         deliveryDate:ticket.deliveryDate.split('T')[0],
         servicePrice:ticket.servicePrice,
         tasks: ticket.tasks,
-        status: ticket.estado ? "Activo" : "Inactivo", 
+        status: ticket.status,
       }
     },
     AddAppointment(){
