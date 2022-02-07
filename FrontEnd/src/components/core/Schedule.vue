@@ -94,20 +94,7 @@
     </v-col>
   </v-row>
 
-          <!-- <v-text-field
-            v-model="time"
-            label="Hora"
-            prepend-icon="mdi-clock-time-four-outline"
-            v-bind="attrs"
-            v-on="on"
-            outlined
-          >
-          <input type="time" id="appt" name="appt"
-       min="09:00" max="18:00" required v-model="time">
-       </v-text-field> -->
-
-
-
+        
         <v-select
           :items="Tipos"
           label="Tipo de Servicio"

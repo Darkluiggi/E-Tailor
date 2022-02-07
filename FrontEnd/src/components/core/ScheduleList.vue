@@ -1,4 +1,5 @@
 <template> 
+<div class="container-center">
     <v-row align="center" class="list px-3 mx-auto">
 
        <v-btn text style="cursor: pointer" @click="AddAppointment()">
@@ -25,7 +26,7 @@
       </v-col>
 
     </v-row>
-    
+    </div>
  
 </template>
 
@@ -119,5 +120,13 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+.container-center{
+  margin-left: 150px;
+  margin-right: auto;
+  width:80%;
+  position:flex;
+  display: inline-block;
+  
+}
 
 </style>

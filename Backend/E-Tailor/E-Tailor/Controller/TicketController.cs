@@ -76,13 +76,13 @@ namespace E_Tailor.Controller
             costumer.tickets.ForEach(x =>
             {
                 x.customer = new Entity.Users.Customer();
-                costumer.tickets.ForEach(y => {
-                   var taskIds = y.tasksIds.Split(',').ToList();
-                    taskIds.ForEach(z =>
+               
+                   var taskIds = x.tasksIds.Split(',').ToList();
+                    taskIds.ForEach(y =>
                     {
-                        y.tasks.Add(tasks.FirstOrDefault(w=> w.id==Int32.Parse(z)));
+                        x.tasks.Add(tasks.FirstOrDefault(z=> z.id==Int32.Parse(y)));
                     });
-                });
+               
             });
 
 
@@ -114,6 +114,7 @@ namespace E_Tailor.Controller
         {
             var appointment = _context.Appointments.Find(id);
             appointment.estado = false;
+            appointment.status = "Fullfilled";
             _context.Appointments.Update(appointment);
             _context.SaveChanges();
 

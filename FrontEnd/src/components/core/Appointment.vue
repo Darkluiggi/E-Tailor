@@ -145,12 +145,16 @@ export default {
     },
   },
   mounted() {
+    this.$route.params.data.date= this.$route.params.data.date.split('T')[0];
+    this.$route.params.data.hour= this.$route.params.data.hour.split('T')[1];
     this.dataSchedule = this.$route.params.data;
     this.retrieveList();
     this.getTypes();
     console.log(this.dataSchedule);
     this.ticket.cliente = this.dataSchedule.customerName;
     this.ticket.tailor = this.dataSchedule.tailor.user.name;
+    // eslint-disable-next-line no-debugger
+    debugger
   },
 
   //Lista Iconos
@@ -182,6 +186,7 @@ export default {
       TaskDAS.getAll()
         .then((response) => {
           this.items = response.data;
+          console.log(this.items)
         })
         .catch((e) => {
           console.log(e);
@@ -207,6 +212,7 @@ export default {
         idCustomer: this.dataSchedule.customerId,
         tasks: this.selected,
         deliveryDate: this.ticket.deliveryDate,
+        clotheType: this.ticket.clotheType,
       };
       console.log(data);
 

@@ -1,7 +1,6 @@
 <template> 
-    <v-row align="center" class="list px-3 mx-auto">
-
-     
+<div class="containter container-center" >
+      <v-row align="center" class="list px-3 mx-auto">   
         
       <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
@@ -14,15 +13,30 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editUser(item.id)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteSchedule(item.id)">mdi-delete</v-icon>
+            <v-icon small class="mr-2" @click="viewTicket(item.id)">mdi-magnify</v-icon>           
           </template>
+
+
+
+        <template v-slot:[`item.tasks`]="{ item }">
+           <div class="row">
+           <div style="margin:3px" v-for="task in item.tasks" :key="task.id">             
+                 <span class="post-tag">
+                  <i style="color: white; font-size:15px"  :class="'v-icon notranslate v-icon--left mdi '+ task.icon +' theme--light'"></i> 
+                  <label>{{task.name}}</label>
+               </span>
+              </div>
+                       
+            </div>
+         
+          </template>
+
         </v-data-table>
       </v-card>
       </v-col>
 
     </v-row>
-    
+    </div>
  
 </template>
 
@@ -34,12 +48,14 @@ export default {
    return {
    user: JSON.parse(localStorage.getItem('user')),
    todos:[],
+   tasks:[],
     headers: [
        
-        { text: "Precio", value: "servicePrice", sortable: false },
-        {text:  "Tailor", value: "tailor" },
+        {text:  "Clothing", value: "clotheType" , sortable: false},
+        {text:  "Tailor", value: "tailor", width: "10%"},
+        { text: "Tasks", value: "tasks", width: "30%" },
+        { text: "Precio", value: "servicePrice",width: "10%" },
         { text: "Status", value: "status" },
-        { text: "Tasks", value: "tasks" },
         { text: "Actions", value: "actions" },
        
       ],
@@ -70,6 +86,7 @@ export default {
         tailor: ticket.tailor.user.name,
         deliveryDate:ticket.deliveryDate.split('T')[0],
         servicePrice:ticket.servicePrice,
+        clotheType: ticket.clotheType,
         tasks: ticket.tasks,
         status: ticket.status,
       }
@@ -116,5 +133,23 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+.post-tag{
+ 
+border-radius: 20px;
+background-color:cadetblue;
+padding:5px;
+margin-right:3px;
+margin-top:50px;
+color:white;
+
+}
+.container-center{
+  margin-left: 150px;
+  margin-right: auto;
+  width:80%;
+  position:flex;
+  display: inline-block;
+  
+}
 
 </style>

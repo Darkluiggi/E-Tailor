@@ -73,8 +73,7 @@ export default {
     attendSchedule(id){
         ScheduleDAS.getAppointmentById(id).then((response) => {
           console.log(response.data)
-          this.$router.push({ name: "Appointment", params: { data: response.data } });
-          
+          this.$router.push({ name: "Appointment", params: { data: response.data } });          
             })
        .catch((e) => {
           console.log(e)

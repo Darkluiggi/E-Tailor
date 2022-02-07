@@ -4,14 +4,16 @@ using E_Tailor.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Tailor.Migrations
 {
     [DbContext(typeof(E_TailorContext))]
-    partial class E_TailorContextModelSnapshot : ModelSnapshot
+    [Migration("20220206220048_addedclothetypetoticket")]
+    partial class addedclothetypetoticket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

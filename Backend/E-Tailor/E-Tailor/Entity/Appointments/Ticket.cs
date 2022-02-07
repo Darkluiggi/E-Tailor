@@ -15,6 +15,7 @@ namespace E_Tailor.Entity.Appointments
             tasks = new List<Task>();
         }
         public int id { get; set; }
+        public string clotheType { get; set; }
         [ForeignKey("tailor")]
         public int idTailor { get; set; }
         public Tailor tailor { get; set; }
