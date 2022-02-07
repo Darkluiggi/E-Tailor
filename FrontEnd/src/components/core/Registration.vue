@@ -30,6 +30,9 @@
           :rules="[(v) => !!v || 'password is required']"
           label="Password"
           required
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"          
+          :type="show1 ? 'text' : 'password'"
+           @click:append="show1 = !show1"
         ></v-text-field>
 
         <v-text-field
@@ -70,6 +73,7 @@ export default {
   name: "add-user",
   data() {
     return {
+      show1: false,
       user:{
         user
       },   

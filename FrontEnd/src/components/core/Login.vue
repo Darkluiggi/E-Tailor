@@ -25,6 +25,9 @@
           :rules="[(v) => !!v || 'password is required']"
           v-model="user.password"
           required
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"          
+          :type="show1 ? 'text' : 'password'"
+           @click:append="show1 = !show1"
         ></v-text-field>
       </v-form>
 
@@ -49,6 +52,7 @@ export default ({
     name: "Login",
      data() {
     return {
+      show1: false,
       user: {
        email:"",
        password:""

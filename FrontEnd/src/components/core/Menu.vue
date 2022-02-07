@@ -65,16 +65,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn class="mx-2" fab dark small color="red">
-            <v-icon dark> mdi-power </v-icon>
-          </v-btn>
-          <v-btn class="mx-2" fab dark small color="orange">
-            <v-icon dark> mdi-cog-outline </v-icon>
-          </v-btn>
-        </div>
-      </template>
+    
      
     </v-navigation-drawer>
 
@@ -161,69 +152,60 @@ export default {
         },
         {
           title: "Usuarios",
-          icon: "mdi-office-building",
+          icon: "mdi-account-box",
           rol: ["Administrador" ],
           action: this.goToUsers,
         },  
         {
           title: "Roles",
-          icon: "mdi-office-building",
+          icon: "mdi-account-check",
           rol: ["Administrador" ],
           action: this.goToRoles,
         },  
         {
           title: "Prendas",
-          icon: "mdi-office-building",
+          icon: "mdi-tshirt-crew",
           rol: ["Administrador" ],
           action: this.goToClothes,
         },  
         {
           title: "Tareas",
-          icon: "mdi-office-building",
+          icon: "mdi-checkbox-marked-circle-plus-outline",
           rol: ["Administrador" ],
           action: this.goToTasks,
         },        
         {
           title: "Citas",
-          icon: "mdi-office-building",
+          icon: "mdi-clipboard-text-clock",
           rol: ["Cliente"],
           action: this.goToSchedule,
         },
         {
           title: "Horario de trabajo",
-          icon: "mdi-office-building",
+          icon: "mdi-clipboard-text-clock",
           rol: [ "Tailor"],
           action: this.goToWorkerSchedule,
         },
         {
           title: "Tickets",
-          icon: "mdi-office-building",
+          icon: "mdi-ticket",
           rol: [ "Tailor"],
           action: this.goToWorkerTickets,
         },
          {
           title: "Lista de tickets",
-          icon: "mdi-office-building",
+          icon: "mdi-ticket",
           rol: [ "Cliente"],
           action: this.goToTiketList,
         },
         {
           title: "Citas de la tienda",
-          icon: "mdi-office-building",
+          icon: "mdi-clipboard-text-clock",
           rol: [ "Administrador"],
           action: this.goToScheduleListMa,
         },
     
-        { title: "Photos",
-         icon: "mdi-image",
-         rol: [ "Administrador","Cliente"],
-         action: "adsasdasdb" 
-         },
-        { title: "About",
-         icon: "mdi-help-box",
-          action: "casdasdasdas", 
-         rol: [ "Administrador","Cliente"],
-         },
+       
       ],
       messages: 1,
     };
