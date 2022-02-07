@@ -1,4 +1,5 @@
 <template>
+<body>
   <div class="submit-form mt-3 mx-auto">
 
     <p class="headline">Inicia sesión</p>
@@ -40,7 +41,7 @@
 
   </div>
  
-  
+</body>  
 </template>
 
 
@@ -114,7 +115,14 @@ export default ({
 <style>
 .submit-form {
   max-width: 300px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  background:white;
+  padding: 40px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
+
 </style>
 
 

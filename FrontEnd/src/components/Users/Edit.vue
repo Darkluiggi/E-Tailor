@@ -127,5 +127,10 @@ export default {
 .edit-form {
   max-width: 300px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 40px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
 </style>
