@@ -1,5 +1,7 @@
 <template>
-  <p>2021 version alpha</p>    
+  <div class="foot">
+  <p>2021 version alpha</p>  
+  </div>  
 </template>
 
 <script>
@@ -12,6 +14,10 @@ export default {
 p {
  text-decoration-style: solid;
  text-align:center
+}
+.foot{
+  background-color: black;
+  color: blanchedalmond;
 }
 </style>
 
