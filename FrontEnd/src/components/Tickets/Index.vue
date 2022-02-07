@@ -71,7 +71,7 @@ export default {
       tasks:[],
       headers: [
         { text: "Cliente", align: "start", sortable: false, value: "customer" },
-        { text: "Tailor", value: "tailor" },
+        { text: "Cloth", value: "ClothType" },
         {text: " Fecha de entrega", value: "deliveryDate" },
         { text: "Precio", value: "servicePrice"},
         { text: "Status", value: "status" },
@@ -129,6 +129,7 @@ export default {
         customer: ticket.customer.user.name, 
         tailor: ticket.tailor.user.name,
         deliveryDate:ticket.deliveryDate.split('T')[0],
+        ClothType: ticket.ClothType,
         servicePrice:ticket.servicePrice,
         tasks: ticket.tasks,
         status: ticket.estado ? "Activo" : "Inactivo", 
