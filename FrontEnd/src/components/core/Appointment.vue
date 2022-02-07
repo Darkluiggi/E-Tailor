@@ -233,5 +233,11 @@ export default {
 <style>
 .clothe {
   max-width: 500px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 40px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
 }
 </style>

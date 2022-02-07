@@ -1,6 +1,5 @@
 <template>
-  <p>2021 version alpha</p> 
-    
+  <p>2021 version alpha</p>    
 </template>
 
 <script>
